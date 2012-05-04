@@ -1,10 +1,13 @@
-package ch.schumm.fakeservice.bean;
+package ch.schumm.fakeservice.test;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
 import ch.schumm.fake.FakeRecorder;
+import ch.schumm.fakeservice.bean.FakeBean;
+import ch.schumm.fakeservice.bean.KundeBean;
+import ch.schumm.fakeservice.bean.RealBean;
 import ch.schumm.fakeservice.model.Kunde;
 import ch.schumm.fakeservice.model.Suchkriterium;
 
