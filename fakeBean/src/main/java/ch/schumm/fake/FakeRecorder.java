@@ -9,10 +9,6 @@ import javax.xml.bind.PropertyException;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import ch.schumm.fakeservice.bean.RealBean;
-import ch.schumm.fakeservice.model.Kunde;
-import ch.schumm.fakeservice.model.Suchkriterium;
-
 /**
  * Nimmt Fake-Daten von einem realen Service auf und legt sie mittels JAXB als XML-Dateien ab. <br>
  * Die Dateinamen der XML-Dateien werden aus dem md5-Hash der Suchkriterien erzeugt. Dazu müssen sie eine eindeutige toString-Methode

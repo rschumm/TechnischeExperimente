@@ -8,7 +8,7 @@ import javax.xml.bind.Unmarshaller;
 /**
  * Reproduziert die mit dem FakeRecoder aufgenommen Testdaten. 
  * 
- * @author C709360
+ * @author C709360 Rémy Schumm
  *
  * @param <S> Typ des Suchkriteriums
  * @param <R> Typ des Resultats. 
