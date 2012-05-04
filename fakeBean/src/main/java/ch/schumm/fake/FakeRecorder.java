@@ -25,26 +25,7 @@ import ch.schumm.fakeservice.model.Suchkriterium;
  */
 public class FakeRecorder<S,R> {
 
-	/**
-	 * Zu Testzwecken. 
-	 * @param args
-	 * @throws Exception
-	 */
-	public static void main(String[] args) throws Exception {
 
-		RealBean bean = new RealBean();
-
-		Suchkriterium hufnagelsuche = RealBean.generateHufnagelSuche();
-		Kunde hufnagel = bean.getKundeForKriterium(hufnagelsuche);
-
-		Suchkriterium schummsuche = RealBean.generateSchummSuche();
-		Kunde schumm = bean.getKundeForKriterium(schummsuche);
-
-		FakeRecorder<Suchkriterium, Kunde> recorder = new FakeRecorder<Suchkriterium, Kunde>(); 
-		recorder.record(schummsuche, schumm);
-		recorder.record(hufnagelsuche, hufnagel);
-
-	}
 
 	/**
 	 * Nimmt einen Testdatensatz auf. 
