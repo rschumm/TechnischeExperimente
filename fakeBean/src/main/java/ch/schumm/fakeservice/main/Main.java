@@ -1,5 +1,6 @@
-package ch.schumm.fake;
+package ch.schumm.fakeservice.main;
 
+import ch.schumm.fake.FakeRecorder;
 import ch.schumm.fakeservice.bean.FakeBean;
 import ch.schumm.fakeservice.bean.KundeBean;
 import ch.schumm.fakeservice.bean.RealBean;
