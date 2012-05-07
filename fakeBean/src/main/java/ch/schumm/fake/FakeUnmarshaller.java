@@ -14,6 +14,13 @@ import javax.xml.bind.Unmarshaller;
  * @param <R> Typ des Resultats. 
  */
 public class FakeUnmarshaller<S, R> {
+	
+	private String pathPrefix = "."; 
+	
+	public FakeUnmarshaller(String pathPrefix){
+		this.pathPrefix = pathPrefix; 
+	}
+	
 
 	/**
 	 * Rekonstruiert die Testdaten für ein Suchkriterium. 
@@ -30,7 +37,7 @@ public class FakeUnmarshaller<S, R> {
 		// Unamarshalling...
 		Unmarshaller u = context.createUnmarshaller();
 		@SuppressWarnings("unchecked")
-		R kunde = (R) u.unmarshal(new File(key + ".xml"));
+		R kunde = (R) u.unmarshal(new File(pathPrefix + "/" + key + ".xml"));
 
 		return kunde;
 	}
