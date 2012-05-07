@@ -22,6 +22,10 @@ public class FakeUnmarshaller<S, R> {
 	}
 	
 
+	public FakeUnmarshaller() {
+	}
+
+
 	/**
 	 * Rekonstruiert die Testdaten für ein Suchkriterium. 
 	 * @param kriterium das Suchkriterium. 
