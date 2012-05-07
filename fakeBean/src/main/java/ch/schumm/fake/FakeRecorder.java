@@ -1,11 +1,10 @@
 package ch.schumm.fake;
 
 import java.io.File;
+import java.lang.reflect.Field;
 
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.PropertyException;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -27,11 +26,11 @@ public class FakeRecorder<S,R> {
 	 * Nimmt einen Testdatensatz auf. 
 	 * @param suche das Suchkriterium
 	 * @param result das Resultat des realen Service. 
-	 * @throws JAXBException
-	 * @throws PropertyException
+	 * @throws Exception 
+	 * @throws IllegalAccessException 
 	 */
 	public void record(S suche, R result)
-			throws JAXBException, PropertyException {
+			throws IllegalAccessException, Exception {
 		JAXBContext context = JAXBContext.newInstance(result.getClass());
 
 		// Marshalling...
@@ -43,9 +42,32 @@ public class FakeRecorder<S,R> {
 		m.marshal(result, new File(md5key + ".xml"));
 	}
 
-	public static String generateHashKey(Object suche) {
-		String key = DigestUtils.md5Hex(suche.toString());
+	protected static String generateHashKey(Object suche) throws IllegalAccessException, Exception {
+		//String key = DigestUtils.md5Hex(suche.toString());
+		String key = DigestUtils.md5Hex(stringOfFields(suche));
 		return key;
+	}
+	
+	/**
+	 * Berechnet aus den String-Feldern eines Suchkriteriums einen Concatenierten String; wird für den md5 Hash benötigt. 
+	 * @param suche das zu berechnende Objekt. 
+	 * @return den berechneten String. 
+	 * @throws Exception
+	 * @throws IllegalAccessException
+	 */
+	public static String stringOfFields(Object suche) throws Exception, IllegalAccessException{
+		String felder = ""; 		
+		Field[] fieldsSuche = suche.getClass().getDeclaredFields();
+		for (Field field : fieldsSuche) {
+			Class<?> type = field.getType();
+            field.setAccessible(true);
+            Object value = field.get(suche); 
+            if (value != null && type == String.class){
+            	felder += value.toString(); 
+            }
+            
+		}
+		return felder; 
 	}
 
 }

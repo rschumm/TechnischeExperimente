@@ -17,6 +17,26 @@ import ch.schumm.fakeservice.model.Suchkriterium;
  *
  */
 public class FakeTest {
+	
+	
+	@Test
+	public void testStringFieldsConcatenater() throws IllegalAccessException, Exception{
+		Suchkriterium hufnagelsuche = RealBean.generateHufnagelSuche();	
+		String stringOfFields = FakeRecorder.stringOfFields(hufnagelsuche); 
+		assertEquals("HufnagelAlzenau", stringOfFields); 
+		
+	}
+	
+	@Test
+	public void testStringFieldsConcatenaterNull() throws IllegalAccessException, Exception{
+		Suchkriterium hufnagelsuche = RealBean.generateHufnagelSuche();
+		hufnagelsuche.setName(null); 	
+		String stringOfFields = FakeRecorder.stringOfFields(hufnagelsuche); 
+		assertEquals("Alzenau", stringOfFields); 
+		
+	}
+	
+	
 
 	@Test
 	public void testRecorder() throws Exception {
