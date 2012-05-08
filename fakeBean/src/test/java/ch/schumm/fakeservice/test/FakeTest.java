@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.After;
 import org.junit.Test;
 
 import ch.schumm.fake.FakeRecorder;
@@ -41,9 +42,8 @@ public class FakeTest {
 	@Test
 	public void testMethodPresence(){
 		KundeBean fakebean = new FakeBean();
-		Kunde kunde = fakebean.getKundeForKriterium(RealBean
-				.generateSchummSuche());
-		assertTrue(FakeRecorder.hasToString(kunde)); 
+		Suchkriterium hufnagelsuche = RealBean.generateHufnagelSuche();	
+		assertTrue(FakeRecorder.hasToString(hufnagelsuche)); 
 
 		assertFalse(FakeRecorder.hasToString(fakebean)); 
 		
@@ -91,7 +91,10 @@ public class FakeTest {
 				kunde.toString());
 	}
 	
-
+	@After
+	public void abraumen(){
+		
+	}
 
 
 	
