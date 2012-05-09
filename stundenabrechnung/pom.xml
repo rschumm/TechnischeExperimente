@@ -23,6 +23,11 @@
       <!-- Specify the JBoss AS directory to be the JBOSS_HOME environment 
          variable -->
       <jboss.home>${env.JBOSS_HOME}</jboss.home>
+      
+      	<!-- RichFaces BOM Version -->
+		<org.richfaces.bom.version>4.0.0.Final</org.richfaces.bom.version>
+      
+      
    </properties>
 
    <dependencyManagement>
@@ -45,6 +50,19 @@
             <type>pom</type>
             <scope>import</scope>
          </dependency>
+         
+         
+         			<!-- Richface Bill-of-Materials -->
+			<dependency>
+				<groupId>org.richfaces</groupId>
+				<artifactId>richfaces-bom</artifactId>
+				<version>${org.richfaces.bom.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+         
+         
+         
       </dependencies>
    </dependencyManagement>
 
@@ -137,6 +155,24 @@
          <version>1.0.0.CR4</version>
          <scope>test</scope>
       </dependency>
+      
+	  <!-- RichFaces Dependencies -->
+	  <dependency>
+	   	<groupId>org.richfaces.ui</groupId>
+		<artifactId>richfaces-components-ui</artifactId>
+	  </dependency>
+	  <dependency>
+		<groupId>org.richfaces.core</groupId>
+		<artifactId>richfaces-core-impl</artifactId>
+	  </dependency>
+	  
+	  
+	  
+	<dependency>
+		<groupId>hsqldb</groupId>
+		<artifactId>hsqldb</artifactId>
+		<version>1.8.0.10</version>
+	</dependency>
 
    </dependencies>
 
