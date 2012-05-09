@@ -24,7 +24,7 @@ public class Journal implements Serializable {
 
 	private boolean plantaverbucht;
 
-	private Object stunden;
+	private Double stunden;
 
 	//bi-directional many-to-one association to Task
     @ManyToOne
@@ -66,11 +66,11 @@ public class Journal implements Serializable {
 		this.plantaverbucht = plantaverbucht;
 	}
 
-	public Object getStunden() {
+	public Double getStunden() {
 		return this.stunden;
 	}
 
-	public void setStunden(Object stunden) {
+	public void setStunden(Double stunden) {
 		this.stunden = stunden;
 	}
 

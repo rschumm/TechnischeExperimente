@@ -3,6 +3,7 @@ insert into journal (DATUM, STUNDEN, TASK, bemerkung)
 values(curdate(), 2,  'pdbui', ''); 
 
 -- jdbc:hsqldb:/Users/rschumm/git/TechnischeExperimente/stundenabrechnung/sql/stundenabrechnung
+-- jdbc:hsqldb:C:\LocalData\99_git\TechnischeExperimente\stundenabrechnung\sql/stundenabrechnung
 
 
 --Tageskontrolle
