@@ -8,7 +8,7 @@
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 		<h:form>
-			<rich:tabPanel styleClass="tabPanel" >
+			<rich:tabPanel switchType="ajax" styleClass="tabPanel" >
 				<rich:tab name="Jorunal">
 					<ui:include src="journal.xhtml" />
 				</rich:tab>
