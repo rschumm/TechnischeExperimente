@@ -8,12 +8,11 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 
 import ch.lepeit.stundenabrechnung.model.Journal;
+import ch.lepeit.stundenabrechnung.model.Task;
 
 @Named
 @SessionScoped
@@ -22,7 +21,7 @@ public class JournalController implements Serializable {
 
 	private Date woche = new Date();
 	
-	@Inject
+	//@Inject
 	private EntityManager em;
 	
 	public List<Date> getWochentage() {
@@ -44,10 +43,26 @@ public class JournalController implements Serializable {
 	
 	public List<Journal> getBuchungen(Date tag) {
 		
-		TypedQuery<Journal> buchungen = em.createQuery("SELECT j FROM Journal j WHERE j.datum = :tag", Journal.class);
-		buchungen.setParameter("tag", tag);
+		//TypedQuery<Journal> buchungen = em.createQuery("SELECT j FROM Journal j WHERE j.datum = :tag", Journal.class);
+		//buchungen.setParameter("tag", tag);
 		
-		return buchungen.getResultList();
+		//return buchungen.getResultList();
+	
+		List<Journal> dummy = new Vector<Journal>();
+		
+		Journal j = new Journal();
+
+		dummy.add(j);
+		
+		Task t = new Task();
+		t.setJournals(dummy);
+		t.setName("Dummy Task");
+		j.setTask(t);
+		j.setStunden(8.3);
+		
+		dummy.add(j);
+		
+		return dummy;
 	}
 
 	public Date getWoche() {
