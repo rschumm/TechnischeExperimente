@@ -5,5 +5,35 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
-	<h:outputText value="Test 123" />
+	
+
+	<rich:dataGrid columns="5" elements="5" value="#{journalController.wochentage}" var="tag" styleClass="journalGrid" >
+		<f:facet name="header" >
+			<h:outputText value="Woche " />
+			<h:outputText value="#{journalController.woche}" >
+				<f:convertDateTime pattern="w" />
+			</h:outputText>
+		</f:facet>
+	
+		<rich:dataTable var="buchung" value="#{journalController.getBuchungen(tag)}" >
+			<f:facet name="header" >
+				<h:outputText value="#{tag}" >
+					<f:convertDateTime pattern="E. d"/>
+				</h:outputText>
+			</f:facet>
+			
+			<f:facet name="footer" >
+				Total: 8.4
+			</f:facet>
+			
+			<rich:column>
+				7.1
+			</rich:column>
+			
+			<rich:column>
+				Task
+			</rich:column>
+		</rich:dataTable>
+	</rich:dataGrid>
+
 </ui:composition>

@@ -4,3 +4,11 @@ body {
     font-family: Verdana, sans-serif;
     font-size: 1em;
 }
+
+.journalGrid {
+	width: 100%;
+}
+
+.journalGrid table {
+	width: 100%;
+}
