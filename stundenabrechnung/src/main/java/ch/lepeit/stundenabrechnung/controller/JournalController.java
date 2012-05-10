@@ -43,6 +43,8 @@ public class JournalController implements Serializable {
 	
 	public List<Journal> getBuchungen(Date tag) {
 		
+		// TODO: Dummy Daten ersetzen
+		
 		//TypedQuery<Journal> buchungen = em.createQuery("SELECT j FROM Journal j WHERE j.datum = :tag", Journal.class);
 		//buchungen.setParameter("tag", tag);
 		
@@ -63,6 +65,11 @@ public class JournalController implements Serializable {
 		dummy.add(j);
 		
 		return dummy;
+	}
+	
+	public Double getTagestotal(Date tag) {
+		// TODO: Dummy Daten ersetzen
+		return 12.32;
 	}
 
 	public Date getWoche() {
