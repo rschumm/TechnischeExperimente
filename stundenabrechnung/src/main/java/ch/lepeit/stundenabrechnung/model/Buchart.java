@@ -1,8 +1,13 @@
 package ch.lepeit.stundenabrechnung.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 
 /**
@@ -19,7 +24,7 @@ public class Buchart implements Serializable {
 
 	//bi-directional many-to-one association to Task
 	@OneToMany(mappedBy="buchart")
-	private Set<Task> tasks;
+	private List<Task> tasks;
 
     public Buchart() {
     }
@@ -32,11 +37,11 @@ public class Buchart implements Serializable {
 		this.art = art;
 	}
 
-	public Set<Task> getTasks() {
+	public List<Task> getTasks() {
 		return this.tasks;
 	}
 
-	public void setTasks(Set<Task> tasks) {
+	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
 	
