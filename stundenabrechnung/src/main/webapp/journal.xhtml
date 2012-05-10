@@ -23,15 +23,18 @@
 			</f:facet>
 			
 			<f:facet name="footer" >
-				Total: 8.4
+				<h:outputText value="Total " />
+				<h:outputText value="#{journalController.getTagestotal(tag)}" >
+					<f:convertNumber maxFractionDigits="1" minFractionDigits="1" />
+				</h:outputText>
 			</f:facet>
 			
 			<rich:column>
-				7.1
+				<h:outputText value="#{buchung.stunden}" />
 			</rich:column>
 			
 			<rich:column>
-				Task
+				<h:outputText value="#{buchung.task.name}" />
 			</rich:column>
 		</rich:dataTable>
 	</rich:dataGrid>
