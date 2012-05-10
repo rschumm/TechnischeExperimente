@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
@@ -20,6 +21,8 @@ public class JournalController implements Serializable {
 	private static final long serialVersionUID = 20120510L;
 
 	private Date woche = new Date();
+	
+	private Journal journal = new Journal();
 	
 	//@Inject
 	private EntityManager em;
@@ -70,6 +73,42 @@ public class JournalController implements Serializable {
 	public Double getTagestotal(Date tag) {
 		// TODO: Dummy Daten ersetzen
 		return 12.32;
+	}
+	
+	public List<SelectItem> getTasks() {
+		List<SelectItem> tasks = new Vector<SelectItem>();
+		
+		Task t1 = new Task();
+		Task t2 = new Task();
+		Task t3 = new Task();
+
+		t1.setName("T #1");
+		t2.setName("T #2");
+		t3.setName("T #3");
+
+		tasks.add(new SelectItem(t1, "T1"));
+		tasks.add(new SelectItem(t2, "T2"));
+		tasks.add(new SelectItem(t3, "T3"));
+		
+		return tasks;
+	}
+	
+	public String save() {
+		System.out.println("Save Journal:");
+		System.out.println(journal.getDatum());
+		System.out.println(journal.getStunden());
+		System.out.println(journal.getTask().getName());
+		System.out.println(journal.getBemerkung());
+		
+		return null;
+	}
+
+	public Journal getJournal() {
+		return journal;
+	}
+
+	public void setJournal(Journal journal) {
+		this.journal = journal;
 	}
 
 	public Date getWoche() {
