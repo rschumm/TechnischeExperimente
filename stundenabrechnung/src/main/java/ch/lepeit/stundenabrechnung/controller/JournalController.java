@@ -7,14 +7,14 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Vector;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 
 import ch.lepeit.stundenabrechnung.model.Journal;
 import ch.lepeit.stundenabrechnung.model.Task;
+import ch.lepeit.stundenabrechnung.service.JournalService;
+import ch.lepeit.stundenabrechnung.service.TaskService;
 
 @Named
 @SessionScoped
@@ -25,10 +25,13 @@ public class JournalController implements Serializable {
 	
 	private Journal journal = new Journal();
 	
-	private String task;
+	private String task = null;
 	
-	@Inject
-	private EntityManager em;
+	@EJB
+	private JournalService journalService;
+	
+	@EJB
+	private TaskService taskService;
 	
 	public List<Date> getWochentage() {
 		List<Date> wochentage = new Vector<Date>();
@@ -48,42 +51,15 @@ public class JournalController implements Serializable {
 	}
 	
 	public List<Journal> getBuchungen(Date tag) {
-		
-		TypedQuery<Journal> buchungen = em.createQuery("SELECT j FROM Journal j WHERE j.datum = :tag", Journal.class);
-		buchungen.setParameter("tag", tag);
-		
-		return buchungen.getResultList();
+		return journalService.getJournals(tag);
 	}
 	
 	public Double getTagestotal(Date tag) {
-		// TODO: Bessere Lösung
-		
-		double total = 0;
-		
-		for(Journal b : this.getBuchungen(tag)) {
-			total += b.getStunden();
-		}
-		
-		return total;
+		return journalService.getTagestotal(tag);
 	}
 	
 	public List<Task> getTasks() {
-		
-		List<Task> tasks = new Vector<Task>();	
-		
-		Task t1 = new Task();
-		Task t2 = new Task();
-		Task t3 = new Task();
-
-		t1.setName("T #1");
-		t2.setName("T #2");
-		t3.setName("T #3");
-
-		tasks.add(t1);
-		tasks.add(t2);
-		tasks.add(t3);
-		
-		return tasks;
+		return taskService.getTasks();
 	}
 	
 	public String save() {
@@ -91,11 +67,27 @@ public class JournalController implements Serializable {
 			System.out.println("Save Journal:");
 			System.out.println(journal.getDatum());
 			System.out.println(journal.getStunden());
-			System.out.println(journal.getTask());
+			System.out.println(task);
 			System.out.println(journal.getBemerkung());
 		} catch (Exception e) {
 			// nothing
 		}
+		
+		// gewählten task in der db suchen
+		Task t = taskService.getTask(this.task);
+		
+		if(t == null) {
+			// TODO: Faces Message
+			System.out.println("Task null");
+			return null;
+		}
+		
+		this.journal.setTask(t);
+		
+		journalService.save(this.journal);
+		
+		this.journal = new Journal();
+		this.task = null;
 		
 		return null;
 	}

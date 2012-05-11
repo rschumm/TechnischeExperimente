@@ -4,77 +4,92 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich">
+	xmlns:rich="http://richfaces.org/rich" >
 
-	<!-- Hinzufuegen eines Journal Eintrags -->
-	<h:form >
-		<h:panelGrid columns="5" class="jorunalHinzufuegen" >
-			<f:facet name="header">
+	<h:panelGroup id="journal">
+
+		<!-- Hinzufuegen eines Journal Eintrags -->
+		<h:form>
+
+			<h:messages styleClass="error" />
+			
+			<h:panelGrid columns="5" class="jorunalHinzufuegen">
+				<f:facet name="header">
 				Hinzufuegen
 			</f:facet>
 
-			<rich:calendar value="#{journalController.journal.datum}" />
-			
-			<h:inputText value="#{journalController.journal.stunden}" />
-			
-			<h:selectOneMenu value="#{journalController.task}" >
-				<f:selectItems value="#{journalController.tasks}" var="task" itemLabel="#{task.name}" itemValue="#{task.name}" />
-			</h:selectOneMenu>
-			
-			<h:inputText value="#{journalController.journal.bemerkung}" />
-			
-			<h:commandButton value="save" action="#{journalController.save}" />
+				<rich:calendar value="#{journalController.journal.datum}"
+					required="true" requiredMessage="Bitte Datum angeben!" />
 
-		</h:panelGrid>
-		
-		<h:messages />
-	</h:form>
+				<h:inputText value="#{journalController.journal.stunden}"
+					required="true" requiredMessage="Bitte Stunden angeben!">
+					<f:convertNumber maxFractionDigits="1" />
+				</h:inputText>
 
-	<!-- Anzeige der Woche -->
-	<h:form>
-	
-		<h:panelGrid columns="3" class="journalWochen" >
-		
-			<a4j:commandLink action="#{journalController.letzteWoche}" render="@form" styleClass="letzteWoche"/>
-	
-			<rich:dataGrid columns="5" elements="5"
-				value="#{journalController.wochentage}" var="tag"
-				styleClass="journalGrid" >
-				<f:facet name="header">
-					<h:outputText value="Woche " />
-					<h:outputText value="#{journalController.woche}">
-						<f:convertDateTime pattern="w yyyy" />
-					</h:outputText>
-				</f:facet>
-		
-				<rich:dataTable var="buchung"
-					value="#{journalController.getBuchungen(tag)}">
+				<rich:select value="#{journalController.task}"
+					enableManualInput="true" defaultLabel="Waehle einen Task"
+					suggedstionValues="#{journalController.tasks}" required="true" requiredMessage="Bitte Task auswaehlen!">
+					<f:selectItems value="#{journalController.tasks}" var="task"
+						itemLabel="#{task.name}" itemValue="#{task.name}" />
+				</rich:select>
+
+				<h:inputText value="#{journalController.journal.bemerkung}" />
+
+				<a4j:commandButton value="save" action="#{journalController.save}"
+					immediate="false" render="journal" />
+
+			</h:panelGrid>
+		</h:form>
+
+		<!-- Anzeige der Woche -->
+		<h:form>
+
+			<h:panelGrid columns="3" class="journalWochen">
+
+				<a4j:commandLink action="#{journalController.letzteWoche}"
+					render="@form" styleClass="letzteWoche" />
+
+				<rich:dataGrid columns="5" elements="5"
+					value="#{journalController.wochentage}" var="tag"
+					styleClass="journalGrid">
 					<f:facet name="header">
-						<h:outputText value="#{tag}">
-							<f:convertDateTime pattern="E. d" />
+						<h:outputText value="Woche " />
+						<h:outputText value="#{journalController.woche}">
+							<f:convertDateTime pattern="w yyyy" />
 						</h:outputText>
 					</f:facet>
-		
-					<f:facet name="footer">
-						<h:outputText value="Total " />
-						<h:outputText value="#{journalController.getTagestotal(tag)}">
-							<f:convertNumber maxFractionDigits="1" minFractionDigits="1" />
-						</h:outputText>
-					</f:facet>
-		
-					<rich:column>
-						<h:outputText value="#{buchung.stunden}" />
-					</rich:column>
-		
-					<rich:column>
-						<h:outputText value="#{buchung.task.name}" />
-					</rich:column>
-				</rich:dataTable>
-			</rich:dataGrid>
-			
-			<a4j:commandLink action="#{journalController.naechsteWoche}" render="@form" styleClass="naechsteWoche"/>
-		
-		</h:panelGrid>
-	</h:form>
+
+					<rich:dataTable var="buchung"
+						value="#{journalController.getBuchungen(tag)}">
+						<f:facet name="header">
+							<h:outputText value="#{tag}">
+								<f:convertDateTime pattern="E. d" />
+							</h:outputText>
+						</f:facet>
+
+						<f:facet name="footer">
+							<h:outputText value="Total " />
+							<h:outputText value="#{journalController.getTagestotal(tag)}">
+								<f:convertNumber maxFractionDigits="1" minFractionDigits="1" />
+							</h:outputText>
+						</f:facet>
+
+						<rich:column>
+							<h:outputText value="#{buchung.stunden}" />
+						</rich:column>
+
+						<rich:column>
+							<h:outputText value="#{buchung.task.name}" />
+						</rich:column>
+					</rich:dataTable>
+				</rich:dataGrid>
+
+				<a4j:commandLink action="#{journalController.naechsteWoche}"
+					render="@form" styleClass="naechsteWoche" />
+
+			</h:panelGrid>
+		</h:form>
+
+	</h:panelGroup>
 
 </ui:composition>

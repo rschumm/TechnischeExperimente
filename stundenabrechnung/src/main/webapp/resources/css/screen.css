@@ -1,8 +1,9 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Verdana, sans-serif;
-    font-size: 1em;
+	margin: 0;
+	padding: 0;
+	font-family: Verdana, sans-serif;
+	font-size: 1em;
+	line-height: 1.5;
 }
 
 .jorunalHinzufuegen {
@@ -26,7 +27,7 @@ body {
 	vertical-align: top;
 }
 
-.letzteWoche, .naechsteWoche {
+.letzteWoche,.naechsteWoche {
 	width: 32px;
 	height: 32px;
 	background: #ff0000;
@@ -40,4 +41,38 @@ body {
 .naechsteWoche {
 	background: url(../resources/gfx/arrow_right.png);
 	float: right;
+}
+
+.info,.success,.warning,.error {
+	border: 1px solid;
+	margin: 10px 0px;
+	padding: 15px 10px 15px 50px;
+	background-repeat: no-repeat;
+	background-position: 10px center;
+	list-style: none;
+	font-weight: bold;
+}
+
+.info {
+	color: #00529B;
+	background-color: #BDE5F8;
+	background-image: url(../resources/gfx/info.png);
+}
+
+.success {
+	color: #4F8A10;
+	background-color: #DFF2BF;
+	background-image: url(../resources/gfx/success.png);
+}
+
+.warning {
+	color: #9F6000;
+	background-color: #FEEFB3;
+	background-image: url(../resources/gfx/warning.png);
+}
+
+.error {
+	color: #D8000C;
+	background-color: #FFBABA;
+	background-image: url(../resources/gfx/error.png);
 }
