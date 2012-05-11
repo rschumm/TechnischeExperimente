@@ -81,5 +81,15 @@ public class Journal implements Serializable {
 	public void setTask(Task task) {
 		this.task = task;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if(o == null)
+			return false;
+		
+		Journal j = (Journal) o;
+		
+		return this.nr == j.getNr();
+	}
 	
 }

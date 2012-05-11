@@ -79,5 +79,16 @@ public class Task implements Serializable {
 	public void setBuchart(Buchart buchart) {
 		this.buchart = buchart;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if(o == null)
+			return false;
+		
+		Task t = (Task) o;
+		
+		return this.name.equals(t.getName());
+	}
+	
 	
 }

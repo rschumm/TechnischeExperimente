@@ -44,5 +44,15 @@ public class Buchart implements Serializable {
 	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if(o == null)
+			return false;
+		
+		Buchart b = (Buchart) o;
+		
+		return this.art.equals(b.getArt());
+	}
 	
 }
