@@ -5,7 +5,7 @@
         http://java.sun.com/xml/ns/persistence
         http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
    <persistence-unit name="primary" transaction-type="RESOURCE_LOCAL">
-      <!-- jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source -->
+      <jta-data-source>java:jboss/datasources/stundenabrechnung</jta-data-source>
       
       <class>ch.lepeit.stundenabrechnung.model.Buchart</class>
       <class>ch.lepeit.stundenabrechnung.model.Journal</class>
@@ -13,14 +13,14 @@
       
       <properties>
          <!-- Properties for Hibernate -->
-         <!-- property name="hibernate.hbm2ddl.auto" value="create-drop" / -->
+         <property name="hibernate.hbm2ddl.auto" value="create-drop" />
          <property name="hibernate.show_sql" value="true" />
          
-         <!-- Connection properties -->
-         <property name="hibernate.connection.driver_class" value="org.h2.Driver" />
-         <property name="hibernate.connection.url" value="jdbc:h2:stundenabrechnung" />
-	     <property name="hibernate.connection.user" value="sa" />
-	     <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+         <!-- Connection properties ->
+         <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver" />
+         <property name="hibernate.connection.url" value="jdbc:hsqldb:sql/stundenabrechnung" />
+	     <property name="hibernate.connection.user" value="sa" /-->
+	     <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
       </properties>
    </persistence-unit>
 </persistence>
