@@ -5,10 +5,39 @@ body {
     font-size: 1em;
 }
 
+.jorunalHinzufuegen {
+	margin: 0 auto;
+}
+
+.journalWochen {
+	width: 100%;
+}
+
 .journalGrid {
 	width: 100%;
+	margin: 0 30px;
 }
 
 .journalGrid table {
 	width: 100%;
+}
+
+.journalGrid tbody {
+	vertical-align: top;
+}
+
+.letzteWoche, .naechsteWoche {
+	width: 32px;
+	height: 32px;
+	background: #ff0000;
+}
+
+.letzteWoche {
+	background: url(../resources/gfx/arrow_left.png);
+	float: left;
+}
+
+.naechsteWoche {
+	background: url(../resources/gfx/arrow_right.png);
+	float: right;
 }
