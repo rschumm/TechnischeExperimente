@@ -8,9 +8,10 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import ch.lepeit.stundenabrechnung.model.Journal;
 import ch.lepeit.stundenabrechnung.model.Task;
@@ -24,7 +25,9 @@ public class JournalController implements Serializable {
 	
 	private Journal journal = new Journal();
 	
-	//@Inject
+	private String task;
+	
+	@Inject
 	private EntityManager em;
 	
 	public List<Date> getWochentage() {
@@ -46,37 +49,27 @@ public class JournalController implements Serializable {
 	
 	public List<Journal> getBuchungen(Date tag) {
 		
-		// TODO: Dummy Daten ersetzen
+		TypedQuery<Journal> buchungen = em.createQuery("SELECT j FROM Journal j WHERE j.datum = :tag", Journal.class);
+		buchungen.setParameter("tag", tag);
 		
-		//TypedQuery<Journal> buchungen = em.createQuery("SELECT j FROM Journal j WHERE j.datum = :tag", Journal.class);
-		//buchungen.setParameter("tag", tag);
-		
-		//return buchungen.getResultList();
-	
-		List<Journal> dummy = new Vector<Journal>();
-		
-		Journal j = new Journal();
-
-		dummy.add(j);
-		
-		Task t = new Task();
-		t.setJournals(dummy);
-		t.setName("Dummy Task");
-		j.setTask(t);
-		j.setStunden(8.3);
-		
-		dummy.add(j);
-		
-		return dummy;
+		return buchungen.getResultList();
 	}
 	
 	public Double getTagestotal(Date tag) {
-		// TODO: Dummy Daten ersetzen
-		return 12.32;
+		// TODO: Bessere Lösung
+		
+		double total = 0;
+		
+		for(Journal b : this.getBuchungen(tag)) {
+			total += b.getStunden();
+		}
+		
+		return total;
 	}
 	
-	public List<SelectItem> getTasks() {
-		List<SelectItem> tasks = new Vector<SelectItem>();
+	public List<Task> getTasks() {
+		
+		List<Task> tasks = new Vector<Task>();	
 		
 		Task t1 = new Task();
 		Task t2 = new Task();
@@ -86,19 +79,47 @@ public class JournalController implements Serializable {
 		t2.setName("T #2");
 		t3.setName("T #3");
 
-		tasks.add(new SelectItem(t1, "T1"));
-		tasks.add(new SelectItem(t2, "T2"));
-		tasks.add(new SelectItem(t3, "T3"));
+		tasks.add(t1);
+		tasks.add(t2);
+		tasks.add(t3);
 		
 		return tasks;
 	}
 	
 	public String save() {
-		System.out.println("Save Journal:");
-		System.out.println(journal.getDatum());
-		System.out.println(journal.getStunden());
-		System.out.println(journal.getTask().getName());
-		System.out.println(journal.getBemerkung());
+		try {
+			System.out.println("Save Journal:");
+			System.out.println(journal.getDatum());
+			System.out.println(journal.getStunden());
+			System.out.println(journal.getTask());
+			System.out.println(journal.getBemerkung());
+		} catch (Exception e) {
+			// nothing
+		}
+		
+		return null;
+	}
+	
+	public String letzteWoche() {
+		Calendar c = new GregorianCalendar();
+		
+		c.setTime(this.woche);
+		
+		c.add(Calendar.WEEK_OF_MONTH, -1);
+		
+		this.woche = c.getTime();
+		
+		return null;
+	}
+	
+	public String naechsteWoche() {		
+		Calendar c = new GregorianCalendar();
+		
+		c.setTime(this.woche);
+		
+		c.add(Calendar.WEEK_OF_MONTH, 1);
+		
+		this.woche = c.getTime();
 		
 		return null;
 	}
@@ -117,6 +138,14 @@ public class JournalController implements Serializable {
 
 	public void setWoche(Date woche) {
 		this.woche = woche;
+	}
+
+	public String getTask() {
+		return task;
+	}
+
+	public void setTask(String task) {
+		this.task = task;
 	}
 	
 }
