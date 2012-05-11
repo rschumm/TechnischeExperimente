@@ -22,7 +22,7 @@ public class JournalService {
 	}
 	
 	public List<Journal> getJournals(Date tag) {
-		TypedQuery<Journal> journals = em.createQuery("SELECT j FROM Journal j WHERE j.datum = :tag", Journal.class);
+		TypedQuery<Journal> journals = em.createQuery("SELECT j FROM Journal j WHERE j.datum = :tag ORDER BY j.datum DESC", Journal.class);
 		
 		journals.setParameter("tag", tag);
 		

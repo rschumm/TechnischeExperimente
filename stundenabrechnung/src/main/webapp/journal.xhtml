@@ -4,7 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich" >
+	xmlns:rich="http://richfaces.org/rich">
 
 	<h:panelGroup id="journal">
 
@@ -12,7 +12,7 @@
 		<h:form>
 
 			<h:messages styleClass="error" />
-			
+
 			<h:panelGrid columns="5" class="jorunalHinzufuegen">
 				<f:facet name="header">
 				Hinzufuegen
@@ -28,7 +28,8 @@
 
 				<rich:select value="#{journalController.task}"
 					enableManualInput="true" defaultLabel="Waehle einen Task"
-					suggedstionValues="#{journalController.tasks}" required="true" requiredMessage="Bitte Task auswaehlen!">
+					suggedstionValues="#{journalController.tasks}" required="true"
+					requiredMessage="Bitte Task auswaehlen!">
 					<f:selectItems value="#{journalController.tasks}" var="task"
 						itemLabel="#{task.name}" itemValue="#{task.name}" />
 				</rich:select>
@@ -90,6 +91,37 @@
 			</h:panelGrid>
 		</h:form>
 
+		<h:panelGroup layout="block" styleClass="korrekturBtnContainer">
+		
+			<h:commandButton value="Korrektur">
+				<rich:componentControl target="korrektur" operation="show" />
+			</h:commandButton>
+			
+		</h:panelGroup>
+
 	</h:panelGroup>
+
+	<!-- TODO: Load by AJAX / Size-->
+	<rich:popupPanel id="korrektur" >
+		<rich:dataTable value="#{journalController.buchungen}" var="journal">
+		
+			<rich:column >
+				<h:outputText value="#{journal.datum}" />
+			</rich:column>
+		
+			<rich:column >
+				<h:outputText value="#{journal.stunden}" />
+			</rich:column>
+		
+			<rich:column >
+				<h:outputText value="#{journal.task.name}" />
+			</rich:column>
+		
+		</rich:dataTable>
+	
+		<h:commandButton value="schliessen">
+			<rich:componentControl target="korrektur" operation="hide" />
+		</h:commandButton>
+	</rich:popupPanel>
 
 </ui:composition>

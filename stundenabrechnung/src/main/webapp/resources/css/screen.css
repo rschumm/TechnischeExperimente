@@ -76,3 +76,7 @@ body {
 	background-color: #FFBABA;
 	background-image: url(../resources/gfx/error.png);
 }
+
+.korrekturBtnContainer {
+	text-align: center;
+}

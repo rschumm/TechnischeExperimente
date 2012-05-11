@@ -55,6 +55,10 @@ public class JournalController implements Serializable {
 		return journalService.getGroupedJournals(tag);
 	}
 	
+	public List<Journal> getBuchungen() {
+		return journalService.getJournals();
+	}
+	
 	public Double getTagestotal(Date tag) {
 		return journalService.getTagestotal(tag);
 	}
