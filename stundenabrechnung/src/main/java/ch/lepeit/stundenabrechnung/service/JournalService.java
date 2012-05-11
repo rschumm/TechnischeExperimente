@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import ch.lepeit.stundenabrechnung.model.GroupedJournal;
 import ch.lepeit.stundenabrechnung.model.Journal;
 
 @Stateless
@@ -22,6 +23,14 @@ public class JournalService {
 	
 	public List<Journal> getJournals(Date tag) {
 		TypedQuery<Journal> journals = em.createQuery("SELECT j FROM Journal j WHERE j.datum = :tag", Journal.class);
+		
+		journals.setParameter("tag", tag);
+		
+		return journals.getResultList();
+	}
+	
+	public List<GroupedJournal> getGroupedJournals(Date tag) {
+		TypedQuery<GroupedJournal> journals = em.createQuery("SELECT j FROM GroupedJournal j WHERE j.datum = :tag", GroupedJournal.class);
 		
 		journals.setParameter("tag", tag);
 		

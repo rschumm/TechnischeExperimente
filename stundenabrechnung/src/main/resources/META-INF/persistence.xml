@@ -9,6 +9,7 @@
       
       <class>ch.lepeit.stundenabrechnung.model.Buchart</class>
       <class>ch.lepeit.stundenabrechnung.model.Journal</class>
+      <class>ch.lepeit.stundenabrechnung.model.GroupedJournal</class>
       <class>ch.lepeit.stundenabrechnung.model.Task</class>
       
       <properties>

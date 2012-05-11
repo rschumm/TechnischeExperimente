@@ -11,6 +11,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
+import ch.lepeit.stundenabrechnung.model.GroupedJournal;
 import ch.lepeit.stundenabrechnung.model.Journal;
 import ch.lepeit.stundenabrechnung.model.Task;
 import ch.lepeit.stundenabrechnung.service.JournalService;
@@ -50,8 +51,8 @@ public class JournalController implements Serializable {
 		return wochentage;
 	}
 	
-	public List<Journal> getBuchungen(Date tag) {
-		return journalService.getJournals(tag);
+	public List<GroupedJournal> getBuchungen(Date tag) {
+		return journalService.getGroupedJournals(tag);
 	}
 	
 	public Double getTagestotal(Date tag) {
