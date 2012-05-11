@@ -20,7 +20,7 @@ public class Journal implements Serializable {
 	private String bemerkung;
 
     @Temporal( TemporalType.DATE)
-	private Date datum;
+	private Date datum = new Date();
 
 	private boolean plantaverbucht;
 
