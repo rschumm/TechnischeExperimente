@@ -18,10 +18,10 @@ Konfiguration
 
 Die standalone.xml des JBoss Applicationserver muss um folgende Datasource erweitert werden:
 
-<datasource jndi-name="java:jboss/datasources/stundenabrechnung" pool-name="stundenabrechnung" enabled="true" use-java-context="true">
-    <connection-url>jdbc:h2:mem:stundenabrechnung</connection-url>
-    <driver>h2</driver>
-    <security>
-        <user-name>sa</user-name>
-    </security>
-</datasource>
+<pre>&lt;datasource jndi-name="java:jboss/datasources/stundenabrechnung" pool-name="stundenabrechnung" enabled="true" use-java-context="true"&gt;
+    &lt;connection-url&gt;>jdbc:h2:mem:stundenabrechnung&lt;/connection-url&gt;
+    &lt;driver&gt;h2&lt;/driver&gt;
+    &lt;security&gt;
+        &lt;user-name>sa&lt;/user-name&gt;
+    &lt;/security&gt;
+&lt;/datasource&gt;</pre>
