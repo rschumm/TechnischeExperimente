@@ -25,3 +25,11 @@ Die standalone.xml des JBoss Applicationserver muss um folgende Datasource erwei
         &lt;user-name>sa&lt;/user-name&gt;
     &lt;/security&gt;
 &lt;/datasource&gt;</pre>
+
+
+URL
+---
+
+die URL der Applikation lautet: 
+http://localhost:8080/stundenabrechnung/index.jsf
+
