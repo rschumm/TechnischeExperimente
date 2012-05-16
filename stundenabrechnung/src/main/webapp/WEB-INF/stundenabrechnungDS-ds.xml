@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources xmlns="http://www.jboss.org/ironjacamar/schema">
+ <datasource jndi-name="java:jboss/datasources/stundenabrechnungDS" enabled="true" 
+     use-java-context="true" pool-name="stundenabrechnungDS">
+  <connection-url>jdbc:hsqldb:file:${user.home}/stundenabrechnung/stundenabrechnungDB</connection-url>
+  <driver>hsqldb.jar</driver>
+  <pool></pool>
+  <security>
+   <user-name>sa</user-name>
+   <password></password>
+  </security>
+ </datasource>
+</datasources>
