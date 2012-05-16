@@ -44,6 +44,8 @@ public class JournalKorrekturController implements Serializable {
 	
 	private void loadJournals() {
 		this.buchungen = journalService.getJournals();
+		this.selectedItem = null;
+		this.selection = null;
 	}
 
 	public void remove() {
