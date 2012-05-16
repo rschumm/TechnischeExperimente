@@ -1,15 +1,20 @@
 package ch.lepeit.stundenabrechnung.controller;
 
+import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
 
+import org.richfaces.component.UIExtendedDataTable;
+
 import ch.lepeit.stundenabrechnung.model.Journal;
+import ch.lepeit.stundenabrechnung.model.Task;
 import ch.lepeit.stundenabrechnung.service.JournalService;
 import ch.lepeit.stundenabrechnung.service.TaskService;
-import java.io.Serializable;
 
 @Named
 @SessionScoped
@@ -18,37 +23,64 @@ public class JournalKorrekturController implements Serializable {
 
 	@EJB
 	private JournalService journalService;
-	
+
 	@EJB
 	private TaskService taskService;
-	
-	private Journal currentJournal;
-	
-	private int currentJournalIndex;
-	
+
+	private Collection<Journal> selection;
+
 	public List<Journal> getBuchungen() {
 		return journalService.getJournals();
 	}
 	
+	public List<Task> getTasks() {
+		return taskService.getTasks();
+	}
+
 	public void remove() {
+		System.out.println("remove");
 	}
-	
+
 	public void save() {
+		System.out.println("save");
 	}
 	
-	public Journal getCurrentJournal() {
-		return currentJournal;
+	private Journal selectedItem = null;
+
+	public void selectionListener(AjaxBehaviorEvent event) {
+		
+		this.selectedItem = null;
+
+		UIExtendedDataTable dataTable = (UIExtendedDataTable) event
+				.getComponent();
+		
+		Object originalKey = dataTable.getRowKey();
+		
+        for (Object selectionKey : selection) {
+            dataTable.setRowKey(selectionKey);
+            if (dataTable.isRowAvailable()) {
+            	this.selectedItem = (Journal) dataTable.getRowData();
+            }
+        }
+        
+        dataTable.setRowKey(originalKey);
+
+	}
+
+	public Collection<Journal> getSelection() {
+		return selection;
+	}
+
+	public void setSelection(Collection<Journal> selection) {
+		System.out.println("set");
+		this.selection = selection;
 	}
 	
-	public void setCurrentJournal(Journal currentJournal) {
-		this.currentJournal = currentJournal;
+	public Journal getSelectedItem() {
+		return selectedItem;
 	}
 	
-	public int getCurrentJournalIndex() {
-		return currentJournalIndex;
-	}
-	
-	public void setCurrentJournalIndex(int currentJournalIndex) {
-		this.currentJournalIndex = currentJournalIndex;
+	public void setSelectedItem(Journal selectedItem) {
+		this.selectedItem = selectedItem;
 	}
 }

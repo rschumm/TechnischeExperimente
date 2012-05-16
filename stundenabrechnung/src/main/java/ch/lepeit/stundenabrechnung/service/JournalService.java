@@ -49,6 +49,12 @@ public class JournalService {
 		return total;
 	}
 	
+	public void delete(int nr) {
+		// TODO: besser?
+		
+		this.em.remove(this.em.find(Journal.class, nr));
+	}
+	
 	public void save(Journal j) {
 		em.persist(j);
 	}
