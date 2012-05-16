@@ -15,7 +15,7 @@
       <properties>
          <!-- Properties for Hibernate -->
          <property name="hibernate.hbm2ddl.auto" value="create-drop" />
-         <property name="hibernate.show_sql" value="true" />
+         <property name="hibernate.show_sql" value="false" />
          
          <!-- Connection properties ->
          <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver" />

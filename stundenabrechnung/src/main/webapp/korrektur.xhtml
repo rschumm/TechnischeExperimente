@@ -30,6 +30,13 @@
 
 					<rich:column>
 						<f:facet name="header">
+							Nr
+						</f:facet>
+						<h:outputText value="#{journal.nr}" />
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">
 							Datum
 						</f:facet>
 						<h:outputText value="#{journal.datum}" />
@@ -84,7 +91,7 @@
 
 						<h:panelGrid columns="6" class="jorunalHinzufuegen">
 
-							<h:outputLabel value="Nr" for="nr" />
+							<h:outputText value="Nr" />
 							<h:outputLabel value="Datum" for="datum" />
 							<h:outputLabel value="Stunden" for="stunden" />
 							<h:outputLabel value="Task" for="task" />

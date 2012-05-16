@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -20,34 +21,43 @@ import ch.lepeit.stundenabrechnung.service.TaskService;
 @SessionScoped
 public class JournalKorrekturController implements Serializable {
 	private static final long serialVersionUID = 20120516L;
+	
+	private List<Journal> buchungen;
+
+	private List<Task> tasks;
+
+	private Collection<Journal> selection;
+	
+	private Journal selectedItem;
 
 	@EJB
 	private JournalService journalService;
 
 	@EJB
 	private TaskService taskService;
-
-	private Collection<Journal> selection;
-
-	public List<Journal> getBuchungen() {
-		return journalService.getJournals();
+	
+	@PostConstruct
+	public void init() {
+		this.loadJournals();
+		this.tasks = taskService.getTasks();
 	}
 	
-	public List<Task> getTasks() {
-		return taskService.getTasks();
+	private void loadJournals() {
+		this.buchungen = journalService.getJournals();
 	}
 
 	public void remove() {
-		// TODO
+		// TODO: implement
 		System.out.println("remove");
 	}
 
 	public void save() {
-		System.out.println("save");
+		System.out.println("save : " + this.selectedItem.getNr());
 		journalService.update(this.selectedItem);
+		
+		// reload from database
+		this.loadJournals();
 	}
-	
-	private Journal selectedItem = null;
 
 	public void selectionListener(AjaxBehaviorEvent event) {
 		
@@ -62,11 +72,21 @@ public class JournalKorrekturController implements Serializable {
             dataTable.setRowKey(selectionKey);
             if (dataTable.isRowAvailable()) {
             	this.selectedItem = (Journal) dataTable.getRowData();
+        		
+        		System.out.println("selectionChanged : " + this.selectedItem.getNr());
             }
         }
         
         dataTable.setRowKey(originalKey);
 
+	}
+
+	public List<Journal> getBuchungen() {
+		return this.buchungen;
+	}
+	
+	public List<Task> getTasks() {
+		return this.tasks;
 	}
 
 	public Collection<Journal> getSelection() {
