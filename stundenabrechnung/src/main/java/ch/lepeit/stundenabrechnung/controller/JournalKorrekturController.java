@@ -47,8 +47,12 @@ public class JournalKorrekturController implements Serializable {
 	}
 
 	public void remove() {
+		journalService.delete(this.selectedItem);
 		// TODO: implement
 		System.out.println("remove");
+		
+		// reload from database
+		this.loadJournals();
 	}
 
 	public void save() {

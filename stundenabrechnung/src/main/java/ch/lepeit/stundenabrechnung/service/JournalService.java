@@ -49,10 +49,9 @@ public class JournalService {
 		return total;
 	}
 	
-	public void delete(int nr) {
-		// TODO: besser?
-		
-		this.em.remove(this.em.find(Journal.class, nr));
+	public void delete(Journal j) {
+		// TODO: korrekt?
+		this.em.remove(em.find(Journal.class, j.getNr()));
 	}
 	
 	public void save(Journal j) {
