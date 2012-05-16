@@ -38,11 +38,13 @@ public class JournalKorrekturController implements Serializable {
 	}
 
 	public void remove() {
+		// TODO
 		System.out.println("remove");
 	}
 
 	public void save() {
 		System.out.println("save");
+		journalService.update(this.selectedItem);
 	}
 	
 	private Journal selectedItem = null;
@@ -72,7 +74,6 @@ public class JournalKorrekturController implements Serializable {
 	}
 
 	public void setSelection(Collection<Journal> selection) {
-		System.out.println("set");
 		this.selection = selection;
 	}
 	
@@ -82,5 +83,16 @@ public class JournalKorrekturController implements Serializable {
 	
 	public void setSelectedItem(Journal selectedItem) {
 		this.selectedItem = selectedItem;
+	}
+	
+	public String getTask() {
+		if(selectedItem == null || selectedItem.getTask() == null)
+			return null;
+		
+		return selectedItem.getTask().getName();
+	}
+	
+	public void setTask(String task) {
+		this.selectedItem.setTask(taskService.getTask(task));
 	}
 }

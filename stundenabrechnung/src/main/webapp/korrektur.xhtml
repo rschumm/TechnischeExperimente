@@ -11,6 +11,8 @@
 		<f:facet name="header">
 			Korrektur
 		</f:facet>
+		
+		<a4j:outputPanel id="korrektur-ajax">
 
 		<h:form>
 
@@ -24,7 +26,7 @@
 
 					<a4j:ajax execute="@form" event="selectionchange" immediate="true"
 						listener="#{journalKorrekturController.selectionListener}"
-						render=":edit-form" />
+						render="edit-form" />
 
 					<rich:column>
 						<f:facet name="header">
@@ -80,13 +82,16 @@
 
 						<h:messages styleClass="error" />
 
-						<h:panelGrid columns="5" class="jorunalHinzufuegen">
+						<h:panelGrid columns="6" class="jorunalHinzufuegen">
 
+							<h:outputLabel value="Nr" for="nr" />
 							<h:outputLabel value="Datum" for="datum" />
 							<h:outputLabel value="Stunden" for="stunden" />
 							<h:outputLabel value="Task" for="task" />
 							<h:outputLabel value="Bemerkung" for="bemerkung" />
 							<h:panelGroup />
+							
+							<h:outputText value="#{journalKorrekturController.selectedItem.nr}" />
 
 							<rich:calendar
 								value="#{journalKorrekturController.selectedItem.datum}"
@@ -100,11 +105,11 @@
 								<f:convertNumber maxFractionDigits="1" />
 							</h:inputText>
 
-							<rich:select value="#{journalController.task}" id="task"
+							<rich:select value="#{journalKorrekturController.task}" id="task"
 								enableManualInput="true" defaultLabel="Waehle einen Task"
-								suggedstionValues="#{journalController.tasks}" required="true"
+								suggedstionValues="#{journalKorrekturController.tasks}" required="true"
 								requiredMessage="Bitte Task auswaehlen!">
-								<f:selectItems value="#{journalController.tasks}" var="task"
+								<f:selectItems value="#{journalKorrekturController.tasks}" var="task"
 									itemLabel="#{task.name}" itemValue="#{task.name}" />
 							</rich:select>
 
@@ -114,7 +119,7 @@
 
 
 							<a4j:commandButton value="save"
-								action="#{journalController.save}" immediate="false" />
+								action="#{journalKorrekturController.save}" immediate="false" render="korrektur-ajax" />
 
 						</h:panelGrid>
 					</h:form>
@@ -127,6 +132,8 @@
 			</h:panelGrid>
 
 		</h:form>
+		
+		</a4j:outputPanel>
 
 	</rich:popupPanel>
 </ui:composition>

@@ -58,4 +58,8 @@ public class JournalService {
 	public void save(Journal j) {
 		em.persist(j);
 	}
+	
+	public void update(Journal j) {
+		em.merge(j);
+	}
 }
