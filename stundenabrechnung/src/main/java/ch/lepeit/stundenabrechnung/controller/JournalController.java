@@ -20,7 +20,7 @@ import ch.lepeit.stundenabrechnung.service.TaskService;
 @Named
 @SessionScoped
 public class JournalController implements Serializable {
-	private static final long serialVersionUID = 20120510L;
+	private static final long serialVersionUID = 20120516L;
 
 	private Date woche = new Date();
 	
@@ -53,10 +53,6 @@ public class JournalController implements Serializable {
 	
 	public List<GroupedJournal> getBuchungen(Date tag) {
 		return journalService.getGroupedJournals(tag);
-	}
-	
-	public List<Journal> getBuchungen() {
-		return journalService.getJournals();
 	}
 	
 	public Double getTagestotal(Date tag) {
