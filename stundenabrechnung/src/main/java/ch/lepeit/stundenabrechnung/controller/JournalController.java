@@ -68,16 +68,6 @@ public class JournalController implements Serializable {
 	}
 	
 	public String save() {
-		try {
-			System.out.println("Save Journal:");
-			System.out.println(journal.getDatum());
-			System.out.println(journal.getStunden());
-			System.out.println(task);
-			System.out.println(journal.getBemerkung());
-		} catch (Exception e) {
-			// nothing
-		}
-		
 		// gewählten task in der db suchen
 		Task t = taskService.getTask(this.task);
 		
