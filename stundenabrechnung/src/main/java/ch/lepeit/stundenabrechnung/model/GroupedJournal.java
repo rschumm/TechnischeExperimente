@@ -12,7 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "GROUPED_JOURNAL")
+@Table(name="GROUPED_JOURNAL")
 public class GroupedJournal implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -80,3 +80,15 @@ body {
 .korrekturBtnContainer {
 	text-align: center;
 }
+
+.auswertungTitel {
+	text-align: center;
+}
+
+.auswertungTitel .letzterMonat {
+	float: left;
+}
+
+.auswertungTitel .naechsterMonat {
+	float: right;
+}

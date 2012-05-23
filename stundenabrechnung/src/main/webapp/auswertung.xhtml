@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:jsflot="http://www.jsflot.org/taglib/jsflot">
+
+	<h:form>
+
+		<rich:panel headerClass="auswertungTitel">
+
+			<f:facet name="header" >
+				<a4j:commandLink action="#{auswertungController.letzterMonat}" render="@form" styleClass="letzterMonat" >
+					-
+				</a4j:commandLink>
+				<a4j:commandLink action="#{auswertungController.letzterMonat}" render="@form" styleClass="naechsterMonat" >
+					+
+				</a4j:commandLink>
+				<h:outputText value="#{auswertungController.monat}" >
+					<f:convertDateTime pattern="MMMM yyyy" />
+				</h:outputText>
+			</f:facet>
+
+			<jsflot:flotChart id="verbuchChart" title="Verbuchung"
+				value="#{auswertungController.verbuchungsChart}" chartType="pie"
+				showXaxisLabels="false" showYaxisLabels="false" legendOpacity="1"
+				legendColumns="1" legendPosition="ne" />
+
+			<rich:dataTable var="buchung" value="#{auswertungController.nichtVerbuchbar}">
+				<f:facet name="header">
+					Nicht verbuchbar
+				</f:facet>
+
+				<rich:column>
+					<h:outputText value="#{buchung.datum}" />
+				</rich:column>
+
+				<rich:column>
+					<h:outputText value="#{buchung.stunden}" />
+				</rich:column>
+
+				<rich:column>
+					<h:outputText value="#{buchung.task.name}" />
+				</rich:column>
+			</rich:dataTable>
+
+		</rich:panel>
+
+	</h:form>
+</ui:composition>

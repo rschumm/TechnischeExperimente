@@ -1,6 +1,8 @@
 package ch.lepeit.stundenabrechnung.service;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -33,6 +35,18 @@ public class JournalService {
 		TypedQuery<GroupedJournal> journals = em.createQuery("SELECT j FROM GroupedJournal j WHERE j.datum = :tag", GroupedJournal.class);
 		
 		journals.setParameter("tag", tag);
+		
+		return journals.getResultList();
+	}
+	
+	public List<GroupedJournal> getNichtVerbuchbarGroupedJournals(Date monat) {
+		TypedQuery<GroupedJournal> journals = em.createQuery("SELECT j FROM GroupedJournal j WHERE YEAR(j.datum) = :jahr AND MONTH(j.datum) = :monat AND j.task.verbuchbar = 0", GroupedJournal.class);
+
+		Calendar c = new GregorianCalendar();
+		c.setTime(monat);
+		
+		journals.setParameter("jahr", c.get(Calendar.YEAR));
+		journals.setParameter("monat", c.get(Calendar.MONTH));
 		
 		return journals.getResultList();
 	}
