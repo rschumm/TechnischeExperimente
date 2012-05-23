@@ -15,7 +15,7 @@ import javax.inject.Named;
 import org.richfaces.component.SortOrder;
 import org.richfaces.component.UIExtendedDataTable;
 
-import ch.lepeit.stundenabrechnung.datamodel.JournalKorrekturDataModel;
+import ch.lepeit.stundenabrechnung.datamodel.JournalDataModel;
 import ch.lepeit.stundenabrechnung.model.Journal;
 import ch.lepeit.stundenabrechnung.model.Task;
 import ch.lepeit.stundenabrechnung.service.JournalService;
@@ -40,7 +40,8 @@ public class JournalKorrekturController implements Serializable {
 	private Map<String, String> filterValues = Maps.newHashMap();
 	private String sortProperty;
 	@EJB
-	private JournalKorrekturDataModel buchungen;
+	private JournalDataModel buchungen;
+	/* dataTable end */
 
 	@EJB
 	private JournalService journalService;
@@ -99,7 +100,7 @@ public class JournalKorrekturController implements Serializable {
 
 	}
 
-	public JournalKorrekturDataModel getBuchungen() {
+	public JournalDataModel getBuchungen() {
 		return this.buchungen;
 	}
 
@@ -135,7 +136,6 @@ public class JournalKorrekturController implements Serializable {
 	}
 
 	/* Richfaces dataTable */
-
 	public Map<String, SortOrder> getSortOrders() {
 		return sortOrders;
 	}
@@ -167,4 +167,5 @@ public class JournalKorrekturController implements Serializable {
 			entry.setValue(newOrder);
 		}
 	}
+	/* dataTable end */
 }

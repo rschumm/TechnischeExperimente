@@ -61,4 +61,12 @@ public class JournalService {
 	public void update(Journal j) {
 		em.merge(j);
 	}
+	
+	public void verbuchen(int nr, boolean verbuchen) {
+		Journal j = em.find(Journal.class, nr);
+		if(j != null) {
+			j.setPlantaverbucht(verbuchen);
+			em.persist(j);
+		}
+	}
 }

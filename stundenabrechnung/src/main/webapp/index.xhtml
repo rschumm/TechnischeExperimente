@@ -8,11 +8,14 @@
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 		<h:form>
-			<rich:tabPanel switchType="ajax" styleClass="tabPanel" immediate="true" >
+			<rich:tabPanel switchType="ajax" styleClass="tabPanel"
+				immediate="true">
 				<rich:tab name="Jorunal">
 					<ui:include src="journal.xhtml" />
 				</rich:tab>
-				<rich:tab name="Verbuchen">Coming soon</rich:tab>
+				<rich:tab name="Verbuchen">
+					<ui:include src="verbuchen.xhtml" />
+				</rich:tab>
 				<rich:tab name="Auswertung">Coming soon</rich:tab>
 			</rich:tabPanel>
 		</h:form>

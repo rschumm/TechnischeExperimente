@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<h:form>
+
+		<rich:extendedDataTable keepSaved="true"
+			value="#{verbuchenController.buchungen}" iterationStatusVar="it"
+			var="journal" selectionMode="none" rows="10" id="verbuchen-table">
+
+			<rich:column>
+				<f:facet name="header">
+					Nr
+				</f:facet>
+				<h:outputText value="#{journal.nr}" />
+			</rich:column>
+
+			<rich:column>
+				<f:facet name="header">
+					Datum
+				</f:facet>
+				<h:outputText value="#{journal.datum}" />
+			</rich:column>
+
+			<rich:column>
+				<f:facet name="header">
+						Stunden
+				</f:facet>
+				<h:outputText value="#{journal.stunden}" />
+			</rich:column>
+
+			<rich:column>
+				<f:facet name="header">
+					Task
+				</f:facet>
+				<h:outputText value="#{journal.task.name}" />
+			</rich:column>
+
+			<rich:column>
+				<f:facet name="header">
+					Bemerkung
+				</f:facet>
+				<h:outputText value="#{journal.bemerkung}" />
+			</rich:column>
+
+			<rich:column>
+				<f:facet name="header">
+					Verbucht
+				</f:facet>
+				<a4j:commandLink rendered="#{journal.plantaverbucht}" action="#{verbuchenController.verbuchen(journal.nr, false)}" render="@form" >
+					<h:graphicImage library="gfx" name="checkbox_yes.png" />
+				</a4j:commandLink>
+				<a4j:commandLink rendered="#{!journal.plantaverbucht}" action="#{verbuchenController.verbuchen(journal.nr, true)}" render="@form" >
+					<h:graphicImage name="gfx/checkbox_no.png" />
+				</a4j:commandLink>
+			</rich:column>
+
+			<f:facet name="footer">
+
+
+				<rich:dataScroller for="verbuchen-table" maxPages="5" >
+
+					<f:facet name="first">
+						<h:outputText value="Erste Seite" />
+					</f:facet>
+
+					<f:facet name="last">
+						<h:outputText value="Letzte Seite" />
+					</f:facet>
+
+				</rich:dataScroller>
+
+			</f:facet>
+
+		</rich:extendedDataTable>
+
+	</h:form>
+</ui:composition>

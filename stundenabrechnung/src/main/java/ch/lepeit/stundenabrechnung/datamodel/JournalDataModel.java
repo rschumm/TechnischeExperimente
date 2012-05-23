@@ -5,8 +5,8 @@ import javax.ejb.Stateful;
 import ch.lepeit.stundenabrechnung.model.Journal;
 
 @Stateful
-public class JournalKorrekturDataModel extends GenericDataModel<Journal> {	
-	public JournalKorrekturDataModel() {
+public class JournalDataModel extends GenericDataModel<Journal> {	
+	public JournalDataModel() {
 		super(Journal.class);
 	}
 }
