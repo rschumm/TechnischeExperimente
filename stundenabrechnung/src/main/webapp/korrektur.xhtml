@@ -18,7 +18,7 @@
 
 			<h:panelGrid columns="1">
 
-				<rich:extendedDataTable
+				<rich:extendedDataTable keepSaved="true"
 					value="#{journalKorrekturController.buchungen}"
 					iterationStatusVar="it" var="journal" selectionMode="single"
 					selection="#{journalKorrekturController.selection}" rows="10"
