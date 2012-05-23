@@ -13,6 +13,10 @@ gebaut werden.
 Dabei kommen die Technlogien Java EE 6, JSF2, JPA, Richfaces 4 etc zum Einsatz. 
 Detaillierte Angaben am Mittwoch in der Einführungsbesprechung. 
 
+Datenbanktreiber
+________________
+Der Datenbanktreiber hsqldb.jar (Vorhanden in src/main/webapp/WEB-INF) muss manuell ins JBoss Deploy-Verzeichnis kopiert werden. Anschliessend kann die Applikation deployed werden.
+
 
 URL
 ---
