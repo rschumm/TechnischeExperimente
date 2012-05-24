@@ -13,7 +13,7 @@ gebaut werden.
 Dabei kommen die Technlogien Java EE 6, JSF2, JPA, Richfaces 4 etc zum Einsatz. 
 Detaillierte Angaben im Wiki unter:
 
-https://github.com/rschumm/TechnischeExperimente/wiki/Stundenabrechnung:-ein-JSF2-Experiment.
+https://github.com/rschumm/TechnischeExperimente/wiki/Stundenabrechnung:-ein-JSF2-Experiment
 
 Konfiguration
 -------------
