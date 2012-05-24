@@ -40,7 +40,7 @@ public class AuswertungService {
         c.setTime(monat);
 
         q.setParameter("jahr", c.get(Calendar.YEAR));
-        q.setParameter("monat", c.get(Calendar.MONTH));
+        q.setParameter("monat", c.get(Calendar.MONTH) + 1); // + 1 Da Calendar Monate von 0 aus zählt
 
         return q.getResultList();
     }

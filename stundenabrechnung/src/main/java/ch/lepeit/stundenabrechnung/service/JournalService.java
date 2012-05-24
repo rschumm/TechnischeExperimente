@@ -59,8 +59,7 @@ public class JournalService {
      * @return Liste der Journaleinträge
      */
     public List<Journal> getJournals(Date tag) {
-        TypedQuery<Journal> journals = em.createQuery(
-                "SELECT j FROM Journal j WHERE j.datum = :tag ORDER BY j.datum DESC", Journal.class);
+        TypedQuery<Journal> journals = em.createQuery("SELECT j FROM Journal j WHERE j.datum = :tag", Journal.class);
 
         journals.setParameter("tag", tag);
 
@@ -78,14 +77,14 @@ public class JournalService {
     public List<GroupedJournal> getNichtVerbuchbarGroupedJournals(Date monat) {
         TypedQuery<GroupedJournal> journals = em
                 .createQuery(
-                        "SELECT j FROM GroupedJournal j WHERE YEAR(j.datum) = :jahr AND MONTH(j.datum) = :monat AND j.task.verbuchbar = 0",
+                        "SELECT j FROM GroupedJournal j WHERE YEAR(j.datum) = :jahr AND MONTH(j.datum) = :monat AND j.task.verbuchbar = 0 ORDER BY j.datum DESC",
                         GroupedJournal.class);
 
         Calendar c = new GregorianCalendar();
         c.setTime(monat);
 
         journals.setParameter("jahr", c.get(Calendar.YEAR));
-        journals.setParameter("monat", c.get(Calendar.MONTH));
+        journals.setParameter("monat", c.get(Calendar.MONTH) + 1); // + 1 Da Calendar Monate von 0 aus zählt
 
         return journals.getResultList();
     }
