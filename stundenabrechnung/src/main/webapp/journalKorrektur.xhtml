@@ -88,57 +88,8 @@
 
 			<a4j:outputPanel id="edit-form">
 
-				<h:form
-					rendered="#{not empty journalKorrekturController.selectedItem}">
-
-					<h:messages styleClass="error" />
-
-					<h:panelGrid columns="6" class="jorunalHinzufuegen">
-
-						<h:outputText value="Nr" />
-						<h:outputLabel value="Datum" for="datum" />
-						<h:outputLabel value="Stunden" for="stunden" />
-						<h:outputLabel value="Task" for="task" />
-						<h:outputLabel value="Bemerkung" for="bemerkung" />
-						<h:panelGroup />
-
-						<h:outputText
-							value="#{journalKorrekturController.selectedItem.nr}" />
-
-						<rich:calendar
-							value="#{journalKorrekturController.selectedItem.datum}"
-							id="datum" required="true" requiredMessage="Bitte Datum angeben!" />
-
-						<h:inputText
-							value="#{journalKorrekturController.selectedItem.stunden}"
-							id="stunden" required="true"
-							requiredMessage="Bitte Stunden angeben!">
-							<f:convertNumber maxFractionDigits="1" />
-						</h:inputText>
-
-						<rich:select value="#{journalKorrekturController.task}" id="task"
-							enableManualInput="true" defaultLabel="Waehle einen Task"
-							suggedstionValues="#{journalKorrekturController.tasks}"
-							required="true" requiredMessage="Bitte Task auswaehlen!">
-							<f:selectItems value="#{journalKorrekturController.tasks}"
-								var="task" itemLabel="#{task.name}" itemValue="#{task.name}" />
-						</rich:select>
-
-						<h:inputText
-							value="#{journalKorrekturController.selectedItem.bemerkung}"
-							id="bemerkung" />
-
-
-						<a4j:commandButton value="save"
-							action="#{journalKorrekturController.save}" immediate="false"
-							render="korrektur" />
-						<a4j:commandButton value="loeschen"
-							action="#{journalKorrekturController.remove}" immediate="false"
-							render="korrektur" />
-
-					</h:panelGrid>
-
-				</h:form>
+				<ui:include src="journalEdit.xhtml" />
+				
 			</a4j:outputPanel>
 
 		</h:panelGrid>

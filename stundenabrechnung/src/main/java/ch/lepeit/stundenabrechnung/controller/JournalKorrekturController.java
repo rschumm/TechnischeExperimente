@@ -2,7 +2,7 @@ package ch.lepeit.stundenabrechnung.controller;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
+import java.util.Observable;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -14,9 +14,6 @@ import org.richfaces.component.UIExtendedDataTable;
 
 import ch.lepeit.stundenabrechnung.datamodel.JournalDataModel;
 import ch.lepeit.stundenabrechnung.model.Journal;
-import ch.lepeit.stundenabrechnung.model.Task;
-import ch.lepeit.stundenabrechnung.service.JournalService;
-import ch.lepeit.stundenabrechnung.service.TaskService;
 
 /**
  * ViewController für die Korrekturansicht des Journals (korrektur.xhtml)
@@ -30,26 +27,15 @@ import ch.lepeit.stundenabrechnung.service.TaskService;
  */
 @Named
 @SessionScoped
-public class JournalKorrekturController implements Serializable {
+public class JournalKorrekturController extends Observable implements Serializable {
     private static final long serialVersionUID = 20120516L;
 
-    /* Richfaces dataTable */
     @EJB
     private JournalDataModel buchungen;
-
-    /* dataTable end */
-
-    @EJB
-    private JournalService journalService;
 
     private Journal selectedItem;
 
     private Collection<Journal> selection;
-
-    private List<Task> tasks;
-
-    @EJB
-    private TaskService taskService;
 
     public JournalDataModel getBuchungen() {
         return this.buchungen;
@@ -63,41 +49,10 @@ public class JournalKorrekturController implements Serializable {
         return selection;
     }
 
-    public String getTask() {
-        if (selectedItem == null || selectedItem.getTask() == null) {
-            return null;
-        }
-
-        return selectedItem.getTask().getName();
-    }
-
-    public List<Task> getTasks() {
-        return this.tasks;
-    }
-
     @PostConstruct
     public void init() {
-        this.loadJournals();
-        this.tasks = taskService.getTasks();
-    }
-
-    private void loadJournals() {
         this.selectedItem = null;
         this.selection = null;
-    }
-
-    public void remove() {
-        journalService.delete(this.selectedItem);
-
-        // reload from database
-        this.loadJournals();
-    }
-
-    public void save() {
-        journalService.update(this.selectedItem);
-
-        // reload from database
-        this.loadJournals();
     }
 
     public void selectionListener(AjaxBehaviorEvent event) {
@@ -115,6 +70,9 @@ public class JournalKorrekturController implements Serializable {
             }
         }
 
+        this.setChanged();
+        this.notifyObservers();
+
         dataTable.setRowKey(originalKey);
 
     }
@@ -125,9 +83,5 @@ public class JournalKorrekturController implements Serializable {
 
     public void setSelection(Collection<Journal> selection) {
         this.selection = selection;
-    }
-
-    public void setTask(String task) {
-        this.selectedItem.setTask(taskService.getTask(task));
     }
 }

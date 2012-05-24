@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<h:form rendered="#{not empty journalEditController.journal}">
+
+		<h:messages styleClass="error" />
+
+		<h:panelGrid columns="6" class="jorunalHinzufuegen">
+
+			<h:outputText value="Nr" />
+			<h:outputLabel value="Datum" for="datum" />
+			<h:outputLabel value="Stunden" for="stunden" />
+			<h:outputLabel value="Task" for="task" />
+			<h:outputLabel value="Bemerkung" for="bemerkung" />
+			<h:panelGroup />
+
+			<h:outputText value="#{journalEditController.journal.nr}" />
+
+			<rich:calendar
+				value="#{journalEditController.journal.datum}" id="datum"
+				required="true" requiredMessage="Bitte Datum angeben!" />
+
+			<h:inputText
+				value="#{journalEditController.journal.stunden}"
+				id="stunden" required="true"
+				requiredMessage="Bitte Stunden angeben!">
+				<f:convertNumber maxFractionDigits="1" />
+			</h:inputText>
+
+			<rich:select value="#{journalEditController.task}" id="task"
+				enableManualInput="true" defaultLabel="Waehle einen Task"
+				suggedstionValues="#{journalEditController.tasks}"
+				required="true" requiredMessage="Bitte Task auswaehlen!">
+				<f:selectItems value="#{journalEditController.tasks}"
+					var="task" itemLabel="#{task.name}" itemValue="#{task.name}" />
+			</rich:select>
+
+			<h:inputText
+				value="#{journalEditController.journal.bemerkung}"
+				id="bemerkung" />
+
+
+			<a4j:commandButton value="save"
+				action="#{journalEditController.save}" immediate="false"
+				render="korrektur" />
+			<a4j:commandButton value="loeschen"
+				action="#{journalEditController.remove}" immediate="false"
+				render="korrektur" />
+
+		</h:panelGrid>
+
+	</h:form>
+</ui:composition>
