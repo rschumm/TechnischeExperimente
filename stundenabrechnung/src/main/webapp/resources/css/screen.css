@@ -86,9 +86,7 @@ body {
 }
 
 .auswertungTitel .letzterMonat {
-	float: left;
 }
 
 .auswertungTitel .naechsterMonat {
-	float: right;
 }

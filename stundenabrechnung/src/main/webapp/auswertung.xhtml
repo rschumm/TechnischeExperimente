@@ -7,22 +7,24 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:jsflot="http://www.jsflot.org/taglib/jsflot">
 
-	<h:form>
-	
-		<a4j:outputPanel>
+	<a4j:outputPanel id="auswertung">
 
 		<rich:panel headerClass="auswertungTitel">
 
-			<f:facet name="header" >
-				<a4j:commandLink action="#{auswertungController.letzterMonat}" immediate="true" render="@form" styleClass="letzterMonat" >
+			<f:facet name="header">
+
+				<h:commandLink action="#{auswertungPagingController.letzterMonat()}"
+					immediate="true" render=":auswertung" styleClass="letzterMonat">
 					-
-				</a4j:commandLink>
-				<a4j:commandLink action="#{auswertungController.naechsterMonat}" render="@form" styleClass="naechsterMonat" >
-					+
-				</a4j:commandLink>
-				<h:outputText value="#{auswertungController.monat}" >
+				</h:commandLink>
+				<h:outputText value="#{auswertungPagingController.monat}">
 					<f:convertDateTime pattern="MMMM yyyy" />
 				</h:outputText>
+				<h:commandLink action="#{auswertungPagingController.naechsterMonat()}"
+					render=":auswertung" styleClass="naechsterMonat">
+					+
+				</h:commandLink>
+
 			</f:facet>
 
 			<jsflot:flotChart id="verbuchChart" title="Verbuchung"
@@ -30,7 +32,8 @@
 				showXaxisLabels="false" showYaxisLabels="false" legendOpacity="1"
 				legendColumns="1" legendPosition="ne" />
 
-			<rich:dataTable var="buchung" value="#{auswertungController.nichtVerbuchbar}">
+			<rich:dataTable var="buchung"
+				value="#{auswertungController.nichtVerbuchbar}">
 				<f:facet name="header">
 					Nicht verbuchbar
 				</f:facet>
@@ -49,8 +52,6 @@
 			</rich:dataTable>
 
 		</rich:panel>
-		
-		</a4j:outputPanel>
 
-	</h:form>
+	</a4j:outputPanel>
 </ui:composition>
