@@ -11,84 +11,86 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-
 /**
- * The persistent class for the TASK database table.
+ * JPA Model Task
+ * 
+ * @author Generated
+ * @author Sven Tschui C910511
  * 
  */
 @Entity
 public class Task implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private String name;
-
-	private String plantaname;
-
-	private boolean verbuchbar;
-
-	//bi-directional many-to-one association to Journal
-	@OneToMany(mappedBy="task")
-	private List<Journal> journals;
-
-	//bi-directional many-to-one association to Buchart
+    // bi-directional many-to-one association to Buchart
     @ManyToOne
-	@JoinColumn(name="BUCHART")
-	private Buchart buchart;
+    @JoinColumn(name = "BUCHART")
+    private Buchart buchart;
+
+    // bi-directional many-to-one association to Journal
+    @OneToMany(mappedBy = "task")
+    private List<Journal> journals;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String name;
+
+    private String plantaname;
+
+    private boolean verbuchbar;
 
     public Task() {
     }
 
-	public String getName() {
-		return this.name;
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+        Task t = (Task) o;
 
-	public String getPlantaname() {
-		return this.plantaname;
-	}
+        return this.name.equals(t.getName());
+    }
 
-	public void setPlantaname(String plantaname) {
-		this.plantaname = plantaname;
-	}
+    public Buchart getBuchart() {
+        return this.buchart;
+    }
 
-	public boolean getVerbuchbar() {
-		return this.verbuchbar;
-	}
+    public List<Journal> getJournals() {
+        return this.journals;
+    }
 
-	public void setVerbuchbar(boolean verbuchbar) {
-		this.verbuchbar = verbuchbar;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public List<Journal> getJournals() {
-		return this.journals;
-	}
+    public String getPlantaname() {
+        return this.plantaname;
+    }
 
-	public void setJournals(List<Journal> journals) {
-		this.journals = journals;
-	}
-	
-	public Buchart getBuchart() {
-		return this.buchart;
-	}
+    public boolean getVerbuchbar() {
+        return this.verbuchbar;
+    }
 
-	public void setBuchart(Buchart buchart) {
-		this.buchart = buchart;
-	}
+    public void setBuchart(Buchart buchart) {
+        this.buchart = buchart;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if(o == null)
-			return false;
-		
-		Task t = (Task) o;
-		
-		return this.name.equals(t.getName());
-	}
-	
-	
+    public void setJournals(List<Journal> journals) {
+        this.journals = journals;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPlantaname(String plantaname) {
+        this.plantaname = plantaname;
+    }
+
+    public void setVerbuchbar(boolean verbuchbar) {
+        this.verbuchbar = verbuchbar;
+    }
+
 }

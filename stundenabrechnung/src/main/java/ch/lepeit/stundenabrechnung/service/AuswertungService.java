@@ -12,21 +12,36 @@ import javax.persistence.TypedQuery;
 
 import ch.lepeit.stundenabrechnung.model.Verbuchbar;
 
+/**
+ * Service, der die Daten für Auswertungen zur Verfügung stellt
+ * 
+ * @author Sven Tschui C910511
+ * 
+ */
 @Stateless
 public class AuswertungService {
-	@PersistenceContext
-	private EntityManager em;
-	
-	// TODO: Implement
-	public List<Verbuchbar> getVerbuchbar(Date monat) {
-		TypedQuery<Verbuchbar> q = em.createQuery("SELECT new ch.lepeit.stundenabrechnung.model.Verbuchbar(j.task.verbuchbar, SUM(stunden)) FROM Journal j WHERE YEAR(j.datum) = :jahr AND MONTH(j.datum) = :monat GROUP BY j.task.verbuchbar", Verbuchbar.class);
-		
-		Calendar c = new GregorianCalendar();
-		c.setTime(monat);
-		
-		q.setParameter("jahr", c.get(Calendar.YEAR));
-		q.setParameter("monat", c.get(Calendar.MONTH));
-		
-		return q.getResultList();
-	}
+    @PersistenceContext
+    private EntityManager em;
+
+    /**
+     * Berechnet die verbuchbare sowie die nicht verbuchbare Zeit, die diesen Monat aufgewendet wurde.
+     * 
+     * @param monat
+     * Monat, für welchen die Auswertung erstellt werden soll.
+     * @return Total (nicht) verbuchbare Zeit diesen Monat
+     */
+    public List<Verbuchbar> getVerbuchbar(Date monat) {
+        TypedQuery<Verbuchbar> q = em
+                .createQuery(
+                        "SELECT new ch.lepeit.stundenabrechnung.model.Verbuchbar(j.task.verbuchbar, SUM(stunden)) FROM Journal j WHERE YEAR(j.datum) = :jahr AND MONTH(j.datum) = :monat GROUP BY j.task.verbuchbar",
+                        Verbuchbar.class);
+
+        Calendar c = new GregorianCalendar();
+        c.setTime(monat);
+
+        q.setParameter("jahr", c.get(Calendar.YEAR));
+        q.setParameter("monat", c.get(Calendar.MONTH));
+
+        return q.getResultList();
+    }
 }

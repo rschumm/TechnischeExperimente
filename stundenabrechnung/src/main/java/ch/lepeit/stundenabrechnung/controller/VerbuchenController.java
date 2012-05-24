@@ -1,77 +1,43 @@
 package ch.lepeit.stundenabrechnung.controller;
 
 import java.io.Serializable;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
-import org.richfaces.component.SortOrder;
-
 import ch.lepeit.stundenabrechnung.datamodel.JournalDataModel;
 import ch.lepeit.stundenabrechnung.service.JournalService;
 
-import com.google.common.collect.Maps;
-
+/**
+ * ViewController für den Verbuchen-Tab (verbuchen.xhtml)
+ * 
+ * Stellt alle Journaleinträge in Form eines JournalDataModel zur Verfügung. Dieses Model wird für das Serverseitige
+ * Paging von Richfaces benötigt. Ausserdem steht eine Funktion zur Verfügung, mit welcher der "verbucht" Status eines
+ * Journaleintrages geändert werden kann.
+ * 
+ * @author Sven Tschui C910511
+ * 
+ */
 @Named
 @SessionScoped
 public class VerbuchenController implements Serializable {
-	private static final long serialVersionUID = 20120523L;
-	
-	@EJB
-	private JournalService journalService;
-	
-	/* Richfaces dataTable */
-	private Map<String, SortOrder> sortOrders = Maps
-			.newHashMapWithExpectedSize(1);
-	private Map<String, String> filterValues = Maps.newHashMap();
-	private String sortProperty;
-	@EJB
-	private JournalDataModel buchungen;
-	/* dataTable end */
-	
-	public JournalDataModel getBuchungen() {
-		return buchungen;
-	}
-	
-	public String verbuchen(int nr, boolean verbuchen) {
-		journalService.verbuchen(nr, verbuchen);
-		return null;
-	}
+    private static final long serialVersionUID = 20120523L;
 
-	/* Richfaces dataTable */
-	public Map<String, SortOrder> getSortOrders() {
-		return sortOrders;
-	}
+    @EJB
+    private JournalDataModel buchungen;
 
-	public Map<String, String> getFilterValues() {
-		return filterValues;
-	}
+    @EJB
+    private JournalService journalService;
 
-	public String getSortProperty() {
-		return sortProperty;
-	}
+    /* dataTable end */
 
-	public void setSortProperty(String sortPropety) {
-		this.sortProperty = sortPropety;
-	}
+    public JournalDataModel getBuchungen() {
+        return buchungen;
+    }
 
-	public void toggleSort() {
-		for (Entry<String, SortOrder> entry : sortOrders.entrySet()) {
-			SortOrder newOrder;
-			if (entry.getKey().equals(sortProperty)) {
-				if (entry.getValue() == SortOrder.ascending) {
-					newOrder = SortOrder.descending;
-				} else {
-					newOrder = SortOrder.ascending;
-				}
-			} else {
-				newOrder = SortOrder.unsorted;
-			}
-			entry.setValue(newOrder);
-		}
-	}
-	/* dataTable end */
+    public String verbuchen(int nr, boolean verbuchen) {
+        journalService.verbuchen(nr, verbuchen);
+        return null;
+    }
 }

@@ -13,74 +13,116 @@ import javax.persistence.TypedQuery;
 import ch.lepeit.stundenabrechnung.model.GroupedJournal;
 import ch.lepeit.stundenabrechnung.model.Journal;
 
+/**
+ * Service für den Zugriff auf (gruppierte) Journaleinträge.
+ * 
+ * @author Sven Tschui C910511
+ * 
+ */
 @Stateless
 public class JournalService {
 
-	@PersistenceContext
-	private EntityManager em;
-	
-	public List<Journal> getJournals() {
-		return em.createQuery("SELECT j FROM Journal j", Journal.class).getResultList();
-	}
-	
-	public List<Journal> getJournals(Date tag) {
-		TypedQuery<Journal> journals = em.createQuery("SELECT j FROM Journal j WHERE j.datum = :tag ORDER BY j.datum DESC", Journal.class);
-		
-		journals.setParameter("tag", tag);
-		
-		return journals.getResultList();
-	}
-	
-	public List<GroupedJournal> getGroupedJournals(Date tag) {
-		TypedQuery<GroupedJournal> journals = em.createQuery("SELECT j FROM GroupedJournal j WHERE j.datum = :tag", GroupedJournal.class);
-		
-		journals.setParameter("tag", tag);
-		
-		return journals.getResultList();
-	}
-	
-	public List<GroupedJournal> getNichtVerbuchbarGroupedJournals(Date monat) {
-		TypedQuery<GroupedJournal> journals = em.createQuery("SELECT j FROM GroupedJournal j WHERE YEAR(j.datum) = :jahr AND MONTH(j.datum) = :monat AND j.task.verbuchbar = 0", GroupedJournal.class);
+    @PersistenceContext
+    private EntityManager em;
 
-		Calendar c = new GregorianCalendar();
-		c.setTime(monat);
-		
-		journals.setParameter("jahr", c.get(Calendar.YEAR));
-		journals.setParameter("monat", c.get(Calendar.MONTH));
-		
-		return journals.getResultList();
-	}
-	
-	public Double getTagestotal(Date tag) {
-		// TODO: Bessere Lösung
-		
-		double total = 0;
-		
-		for(Journal b : this.getJournals(tag)) {
-			total += b.getStunden();
-		}
-		
-		return total;
-	}
-	
-	public void delete(Journal j) {
-		// TODO: korrekt?
-		this.em.remove(em.find(Journal.class, j.getNr()));
-	}
-	
-	public void save(Journal j) {
-		em.persist(j);
-	}
-	
-	public void update(Journal j) {
-		em.merge(j);
-	}
-	
-	public void verbuchen(int nr, boolean verbuchen) {
-		Journal j = em.find(Journal.class, nr);
-		if(j != null) {
-			j.setPlantaverbucht(verbuchen);
-			em.persist(j);
-		}
-	}
+    /**
+     * Löschen eines Journaleintrages
+     * 
+     * @param j
+     */
+    public void delete(Journal j) {
+        // TODO: Richtiger Ansatz für den detached delete
+        this.em.remove(em.find(Journal.class, j.getNr()));
+    }
+
+    /**
+     * Erstellt eine Liste von gruppierten Journaleinträgen für einen Wochentag.
+     * 
+     * @param tag
+     * Tag, für welchen die Liste erstellt werden soll.
+     * @return Liste der gruppierten Journaleinträge
+     */
+    public List<GroupedJournal> getGroupedJournals(Date tag) {
+        TypedQuery<GroupedJournal> journals = em.createQuery("SELECT j FROM GroupedJournal j WHERE j.datum = :tag",
+                GroupedJournal.class);
+
+        journals.setParameter("tag", tag);
+
+        return journals.getResultList();
+    }
+
+    /**
+     * Erstellt eine Liste von Journaleinträgen für einen Wochentag.
+     * 
+     * @param tag
+     * Tag, für welchen die Liste erstellt werden soll.
+     * @return Liste der Journaleinträge
+     */
+    public List<Journal> getJournals(Date tag) {
+        TypedQuery<Journal> journals = em.createQuery(
+                "SELECT j FROM Journal j WHERE j.datum = :tag ORDER BY j.datum DESC", Journal.class);
+
+        journals.setParameter("tag", tag);
+
+        return journals.getResultList();
+    }
+
+    /**
+     * Erstellt eine Liste von gruppierten Journaleinträgen, welche mit einem nicht verbuchbaren Task verknüpft sind,
+     * für einen Wochentag.
+     * 
+     * @param tag
+     * Tag, für welchen die Liste erstellt werden soll.
+     * @return Liste der gruppierten Journaleinträge
+     */
+    public List<GroupedJournal> getNichtVerbuchbarGroupedJournals(Date monat) {
+        TypedQuery<GroupedJournal> journals = em
+                .createQuery(
+                        "SELECT j FROM GroupedJournal j WHERE YEAR(j.datum) = :jahr AND MONTH(j.datum) = :monat AND j.task.verbuchbar = 0",
+                        GroupedJournal.class);
+
+        Calendar c = new GregorianCalendar();
+        c.setTime(monat);
+
+        journals.setParameter("jahr", c.get(Calendar.YEAR));
+        journals.setParameter("monat", c.get(Calendar.MONTH));
+
+        return journals.getResultList();
+    }
+
+    /**
+     * Speichern/erfassten eines neuen Journaleintrages
+     * 
+     * @param j
+     * Der zu speichernde Journaleintrag
+     */
+    public void save(Journal j) {
+        em.persist(j);
+    }
+
+    /**
+     * Speichern/erfassten eines bestehenden Journaleintrages
+     * 
+     * @param j
+     * Der zu speichernde Journaleintrag
+     */
+    public void update(Journal j) {
+        em.merge(j);
+    }
+
+    /**
+     * Ändern des verbucht Status eines Journaleintrages
+     * 
+     * @param nr
+     * Nummer des Journaleintrages
+     * @param verbuchen
+     * Neu zu setzender Status
+     */
+    public void verbuchen(int nr, boolean verbuchen) {
+        Journal j = em.find(Journal.class, nr);
+        if (j != null) {
+            j.setPlantaverbucht(verbuchen);
+            em.persist(j);
+        }
+    }
 }

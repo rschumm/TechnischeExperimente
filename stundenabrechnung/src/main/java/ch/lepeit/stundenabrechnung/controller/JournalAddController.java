@@ -13,61 +13,71 @@ import ch.lepeit.stundenabrechnung.model.Task;
 import ch.lepeit.stundenabrechnung.service.JournalService;
 import ch.lepeit.stundenabrechnung.service.TaskService;
 
+/**
+ * ViewController für das Hinzufügen eines Journaleintrages (journalAdd.xhtml)
+ * 
+ * Stellt eine Funktion zum speichern/erfassen eines Journaleintrages bereit. Es wird eine Liste aller Tasks für das
+ * DropDown bereitgestellt.
+ * 
+ * @author Sven Tschui C910511
+ * 
+ */
 @Named
 @RequestScoped
 public class JournalAddController {
-	private Journal journal;
-	
-	private List<Task> tasks;
-	
-	@EJB
-	private JournalService journalService;
-	
-	@EJB
-	private TaskService taskService;
-	
-	@Inject
-	private JournalController journalController;
-	
-	@PostConstruct
-	public void init() {
-		// Leeres Journal für das Hinzufpgen-Formular
-		this.journal = new Journal();
-		
-		this.tasks = this.taskService.getTasks();
-	}
+    private Journal journal;
 
-	public String getTask() {
-		if(this.journal == null || this.journal.getTask() == null)
-			return null;
-		
-		return this.journal.getTask().getName();
-	}
+    @Inject
+    private JournalController journalController;
 
-	public void setTask(String task) {
-		this.journal.setTask(this.taskService.getTask(task));
-		System.out.println("setTask : " + this.journal.getTask().getName());
-	}
-	
-	public List<Task> getTasks() {
-		return this.tasks;
-	}
-	
-	public String save() {
-		System.out.println("save");
-		// Journal speichern
-		journalService.save(this.journal);
-		
-		// Neues leeres Journal
-		this.journal = new Journal();
-		
-		// Daten der Wochenübersicht neu laden
-		this.journalController.reload();
-		
-		return null;
-	}
+    @EJB
+    private JournalService journalService;
 
-	public Journal getJournal() {
-		return journal;
-	}
+    private List<Task> tasks;
+
+    @EJB
+    private TaskService taskService;
+
+    public Journal getJournal() {
+        return journal;
+    }
+
+    public String getTask() {
+        if (this.journal == null || this.journal.getTask() == null) {
+            return null;
+        }
+
+        return this.journal.getTask().getName();
+    }
+
+    public List<Task> getTasks() {
+        return this.tasks;
+    }
+
+    @PostConstruct
+    public void init() {
+        // Leeres Journal für das Hinzufpgen-Formular
+        this.journal = new Journal();
+
+        this.tasks = this.taskService.getTasks();
+    }
+
+    public String save() {
+        System.out.println("save");
+        // Journal speichern
+        journalService.save(this.journal);
+
+        // Neues leeres Journal
+        this.journal = new Journal();
+
+        // Daten der Wochenübersicht neu laden
+        this.journalController.reload();
+
+        return null;
+    }
+
+    public void setTask(String task) {
+        this.journal.setTask(this.taskService.getTask(task));
+        System.out.println("setTask : " + this.journal.getTask().getName());
+    }
 }

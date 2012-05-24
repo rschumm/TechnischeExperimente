@@ -9,44 +9,7 @@
 	<h:panelGroup id="journal">
 
 		<!-- Hinzufuegen eines Journal Eintrags -->
-		<h:form>
-
-			<h:messages styleClass="error" />
-
-			<h:panelGrid columns="5" class="journalHinzufuegen">
-				<f:facet name="header">
-					Hinzufuegen
-				</f:facet>
-				
-				<h:outputLabel value="Datum" for="datum" />
-				<h:outputLabel value="Stunden" for="stunden" />
-				<h:outputLabel value="Task" for="task" />
-				<h:outputLabel value="Bemerkung" for="bemerkung" />
-				<h:panelGroup />
-
-				<rich:calendar value="#{journalAddController.journal.datum}" id="datum"
-					required="true" requiredMessage="Bitte Datum angeben!" />
-
-				<h:inputText value="#{journalAddController.journal.stunden}" id="stunden"
-					required="true" requiredMessage="Bitte Stunden angeben!">
-					<f:convertNumber maxFractionDigits="1" />
-				</h:inputText>
-
-				<rich:select value="#{journalAddController.task}" id="task"
-					enableManualInput="true" defaultLabel="Waehle einen Task"
-					suggedstionValues="#{journalAddController.tasks}" required="true"
-					requiredMessage="Bitte Task auswaehlen!">
-					<f:selectItems value="#{journalAddController.tasks}" var="task"
-						itemLabel="#{task.name}" itemValue="#{task.name}" />
-				</rich:select>
-
-				<h:inputText value="#{journalAddController.journal.bemerkung}" id="bemerkung" />
-
-				<a4j:commandButton value="save" action="#{journalAddController.save}" 
-					immediate="false" render="journal" />
-
-			</h:panelGrid>
-		</h:form>
+		<ui:include src="journalAdd.xhtml" />
 
 		<!-- Anzeige der Woche -->
 		<h:form>
@@ -66,8 +29,7 @@
 						</h:outputText>
 					</f:facet>
 
-					<rich:dataTable var="buchung"
-						value="#{tag.buchungen}">
+					<rich:dataTable var="buchung" value="#{tag.buchungen}">
 						<f:facet name="header">
 							<h:outputText value="#{tag.datum}">
 								<f:convertDateTime pattern="E. d" />
@@ -98,15 +60,15 @@
 		</h:form>
 
 		<h:panelGroup layout="block" styleClass="korrekturBtnContainer">
-		
+
 			<h:commandButton value="Korrektur">
 				<rich:componentControl target="korrektur" operation="show" />
 			</h:commandButton>
-			
+
 		</h:panelGroup>
 
 	</h:panelGroup>
 
-	<ui:include src="korrektur.xhtml" />
+	<ui:include src="journalKorrektur.xhtml" />
 
 </ui:composition>

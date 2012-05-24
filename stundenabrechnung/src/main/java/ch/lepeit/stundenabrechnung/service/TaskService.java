@@ -8,17 +8,35 @@ import javax.persistence.PersistenceContext;
 
 import ch.lepeit.stundenabrechnung.model.Task;
 
+/**
+ * Service für den zugriff auf die Task Entität
+ * 
+ * @author Sven Tschui C910511
+ * 
+ */
 @Stateless
 public class TaskService {
 
-	@PersistenceContext
-	private EntityManager em;
-	
-	public Task getTask(String name) {
-		return em.find(Task.class, name);
-	}
-	
-	public List<Task> getTasks() {
-		return em.createQuery("SELECT t FROM Task t", Task.class).getResultList();
-	}
+    @PersistenceContext
+    private EntityManager em;
+
+    /**
+     * Suchen einer Task Entität mit dessen Name (Primärschlüssel)
+     * 
+     * @param name
+     * Name des Tasks
+     * @return Gefundener Task oder null
+     */
+    public Task getTask(String name) {
+        return em.find(Task.class, name);
+    }
+
+    /**
+     * Erstellt eine Liste aller Tasks
+     * 
+     * @return Liste aller Tasks
+     */
+    public List<Task> getTasks() {
+        return em.createQuery("SELECT t FROM Task t", Task.class).getResultList();
+    }
 }
