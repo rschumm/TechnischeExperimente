@@ -90,3 +90,7 @@ body {
 
 .auswertungTitel .naechsterMonat {
 }
+
+.popup-close {
+	float: right;
+}
