@@ -11,7 +11,9 @@ Aufgabe
 Es soll - basierend auf der mitglieferten H2-Datenbank - ein Gui auf die gute alte Stundenabrechnung
 gebaut werden. 
 Dabei kommen die Technlogien Java EE 6, JSF2, JPA, Richfaces 4 etc zum Einsatz. 
-Detaillierte Angaben am Mittwoch in der Einführungsbesprechung. 
+Detaillierte Angaben im Wiki unter:
+
+https://github.com/rschumm/TechnischeExperimente/wiki/Stundenabrechnung:-ein-JSF2-Experiment.
 
 Konfiguration
 -------------
