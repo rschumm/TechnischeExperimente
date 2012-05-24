@@ -10,6 +10,14 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
+/**
+ * Paging für die Auswertung
+ * 
+ * Benachrichtigt Observer, wenn sich der anzuzeigende Monat ändert.
+ * 
+ * @author Sven Tschui C910511
+ * 
+ */
 @Named
 @SessionScoped
 public class AuswertungPagingController extends Observable implements Serializable {
@@ -33,8 +41,6 @@ public class AuswertungPagingController extends Observable implements Serializab
 
         c.add(Calendar.MONTH, -1);
 
-        System.out.println("prev " + monat + " -> " + c.getTime());
-
         this.monat = c.getTime();
 
         this.setChanged();
@@ -49,8 +55,6 @@ public class AuswertungPagingController extends Observable implements Serializab
         c.setTime(monat);
 
         c.add(Calendar.MONTH, 1);
-
-        System.out.println("next " + monat + " -> " + c.getTime());
 
         this.monat = c.getTime();
 

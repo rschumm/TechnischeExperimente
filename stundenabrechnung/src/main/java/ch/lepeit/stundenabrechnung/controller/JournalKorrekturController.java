@@ -88,15 +88,12 @@ public class JournalKorrekturController implements Serializable {
 
     public void remove() {
         journalService.delete(this.selectedItem);
-        // TODO: implement
-        System.out.println("remove");
 
         // reload from database
         this.loadJournals();
     }
 
     public void save() {
-        System.out.println("save : " + this.selectedItem.getNr());
         journalService.update(this.selectedItem);
 
         // reload from database
@@ -115,8 +112,6 @@ public class JournalKorrekturController implements Serializable {
             dataTable.setRowKey(selectionKey);
             if (dataTable.isRowAvailable()) {
                 this.selectedItem = (Journal) dataTable.getRowData();
-
-                System.out.println("selectionChanged : " + this.selectedItem.getNr());
             }
         }
 

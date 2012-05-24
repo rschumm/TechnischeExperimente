@@ -63,7 +63,6 @@ public class JournalAddController {
     }
 
     public String save() {
-        System.out.println("save");
         // Journal speichern
         journalService.save(this.journal);
 
@@ -78,6 +77,5 @@ public class JournalAddController {
 
     public void setTask(String task) {
         this.journal.setTask(this.taskService.getTask(task));
-        System.out.println("setTask : " + this.journal.getTask().getName());
     }
 }
