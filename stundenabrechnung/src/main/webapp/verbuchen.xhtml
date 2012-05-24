@@ -6,7 +6,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
 
-	<h:form>
+	<a4j:outputPanel id="verbuchen">
 
 		<rich:extendedDataTable keepSaved="true"
 			value="#{verbuchenController.buchungen}" iterationStatusVar="it"
@@ -51,10 +51,10 @@
 				<f:facet name="header">
 					Verbucht
 				</f:facet>
-				<a4j:commandLink rendered="#{journal.plantaverbucht}" action="#{verbuchenController.verbuchen(journal.nr, false)}" render="@form" >
+				<a4j:commandLink rendered="#{journal.plantaverbucht}" action="#{verbuchenController.verbuchen(journal.nr, false)}" render=":verbuchen" >
 					<h:graphicImage library="gfx" name="checkbox_yes.png" />
 				</a4j:commandLink>
-				<a4j:commandLink rendered="#{!journal.plantaverbucht}" action="#{verbuchenController.verbuchen(journal.nr, true)}" render="@form" >
+				<a4j:commandLink rendered="#{!journal.plantaverbucht}" action="#{verbuchenController.verbuchen(journal.nr, true)}" render=":verbuchen" >
 					<h:graphicImage name="gfx/checkbox_no.png" />
 				</a4j:commandLink>
 			</rich:column>
@@ -78,5 +78,5 @@
 
 		</rich:extendedDataTable>
 
-	</h:form>
+	</a4j:outputPanel>
 </ui:composition>

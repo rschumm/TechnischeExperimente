@@ -12,12 +12,12 @@
 		<ui:include src="journalAdd.xhtml" />
 
 		<!-- Anzeige der Woche -->
-		<h:form>
+		<a4j:outputPanel id="journal-woche">
 
 			<h:panelGrid columns="3" class="journalWochen">
 
 				<a4j:commandLink action="#{journalController.letzteWoche}"
-					render="@form" styleClass="letzteWoche" />
+					render=":journal-woche" immediate="true" styleClass="letzteWoche" />
 
 				<rich:dataGrid columns="5" elements="5"
 					value="#{journalController.wochentage}" var="tag"
@@ -54,10 +54,10 @@
 				</rich:dataGrid>
 
 				<a4j:commandLink action="#{journalController.naechsteWoche}"
-					render="@form" styleClass="naechsteWoche" />
+					render=":journal-woche" immediate="true" styleClass="naechsteWoche" />
 
 			</h:panelGrid>
-		</h:form>
+		</a4j:outputPanel>
 
 		<h:panelGroup layout="block" styleClass="korrekturBtnContainer">
 
