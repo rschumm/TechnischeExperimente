@@ -31,7 +31,6 @@ public class JournalService {
      * @param j
      */
     public void delete(Journal j) {
-        // TODO: Richtiger Ansatz für den detached delete
         this.em.remove(em.find(Journal.class, j.getNr()));
     }
 
