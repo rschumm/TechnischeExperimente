@@ -166,6 +166,9 @@
 			<groupId>org.richfaces.core</groupId>
 			<artifactId>richfaces-core-impl</artifactId>
 		</dependency>
+		
+		
+		<!-- Projekt Dependencies -->
 
 		<dependency>
 			<groupId>org.hsqldb</groupId>
@@ -174,6 +177,13 @@
 
 		</dependency>
 
+
+		<dependency>
+			<groupId>org.jsflot</groupId>
+			<artifactId>jsflot</artifactId>
+			<version>0.7.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.jboss.spec.javax.faces</groupId>
 			<artifactId>jboss-jsf-api_2.0_spec</artifactId>
@@ -184,6 +194,7 @@
 			<artifactId>jboss-jsf-api_2.0_spec</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		
 
 		<dependency>
 			<groupId>javax.el</groupId>
