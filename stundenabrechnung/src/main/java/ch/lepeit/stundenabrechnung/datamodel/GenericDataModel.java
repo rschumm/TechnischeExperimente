@@ -85,7 +85,6 @@ public abstract class GenericDataModel<T> extends ExtendedDataModel<T> implement
 
     private Expression<Boolean> createFilterCriteria(CriteriaBuilder criteriaBuilder, Root<T> root) {
         Expression<Boolean> filterCriteria = null;
-        // TODO: Quickfixed
         List<FilterField> filterFields = (arrangeableState == null ? null : arrangeableState.getFilterFields());
         if (filterFields != null && !filterFields.isEmpty()) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
