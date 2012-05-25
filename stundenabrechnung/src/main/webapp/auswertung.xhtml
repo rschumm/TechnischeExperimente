@@ -20,36 +20,48 @@
 				<h:outputText value="#{auswertungPagingController.monat}">
 					<f:convertDateTime pattern="MMMM yyyy" />
 				</h:outputText>
-				<h:commandLink action="#{auswertungPagingController.naechsterMonat()}"
+				<h:commandLink
+					action="#{auswertungPagingController.naechsterMonat()}"
 					render=":auswertung" styleClass="naechsterMonat">
 					+
 				</h:commandLink>
 
 			</f:facet>
 
-			<jsflot:flotChart id="verbuchChart" title="Verbuchung"
-				value="#{auswertungController.verbuchungsChart}" chartType="pie"
-				showXaxisLabels="false" showYaxisLabels="false" legendOpacity="1"
-				legendColumns="1" legendPosition="ne" />
+			<h:panelGrid columns="2" styleClass="diagrammTable" >
 
-			<rich:dataTable var="buchung"
-				value="#{auswertungController.nichtVerbuchbar}">
-				<f:facet name="header">
+				<h:panelGroup>
+
+					<jsflot:flotChart id="verbuchChart" title="Verbuchung"
+						value="#{auswertungController.verbuchbarChart}" chartType="pie"
+						showXaxisLabels="false" showYaxisLabels="false" legendOpacity="1"
+						legendColumns="1" legendPosition="ne" />
+
+					<rich:dataTable var="buchung"
+						value="#{auswertungController.nichtVerbuchbar}">
+						<f:facet name="header">
 					Nicht verbuchbar
 				</f:facet>
 
-				<rich:column>
-					<h:outputText value="#{buchung.datum}" />
-				</rich:column>
+						<rich:column>
+							<h:outputText value="#{buchung.datum}" />
+						</rich:column>
 
-				<rich:column>
-					<h:outputText value="#{buchung.stunden}" />
-				</rich:column>
+						<rich:column>
+							<h:outputText value="#{buchung.stunden}" />
+						</rich:column>
 
-				<rich:column>
-					<h:outputText value="#{buchung.task.name}" />
-				</rich:column>
-			</rich:dataTable>
+						<rich:column>
+							<h:outputText value="#{buchung.task.name}" />
+						</rich:column>
+					</rich:dataTable>
+				</h:panelGroup>
+
+				<jsflot:flotChart id="buchartChart" title="Buchart"
+					value="#{auswertungController.buchartChart}" chartType="pie"
+					showXaxisLabels="false" showYaxisLabels="false" legendOpacity="1"
+					legendColumns="1" legendPosition="ne" />
+			</h:panelGrid>
 
 		</rich:panel>
 

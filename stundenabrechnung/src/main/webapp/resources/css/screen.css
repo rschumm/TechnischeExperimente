@@ -94,3 +94,7 @@ body {
 .popup-close {
 	float: right;
 }
+
+.diagrammTable td {
+	vertical-align: top;
+}

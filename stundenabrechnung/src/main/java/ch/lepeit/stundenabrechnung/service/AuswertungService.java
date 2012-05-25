@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import ch.lepeit.stundenabrechnung.model.BuchartStunden;
 import ch.lepeit.stundenabrechnung.model.Verbuchbar;
 
 /**
@@ -22,6 +23,28 @@ import ch.lepeit.stundenabrechnung.model.Verbuchbar;
 public class AuswertungService {
     @PersistenceContext
     private EntityManager em;
+
+    /**
+     * Berechnet, mit welchem Tool wie viel Zeit verbucht wurde.
+     * 
+     * @param monat
+     * Monat, für welchen die Auswertung erstellt werden soll.
+     * @return Liste der Bucharten und der damit verbuchten Stunden
+     */
+    public List<BuchartStunden> getBuchartProMonat(Date monat) {
+        TypedQuery<BuchartStunden> q = em
+                .createQuery(
+                        "SELECT new ch.lepeit.stundenabrechnung.model.BuchartStunden(j.task.buchart.art, SUM(j.stunden)) FROM Journal j WHERE YEAR(j.datum) = :jahr AND MONTH(j.datum) = :monat GROUP BY j.task.buchart.art",
+                        BuchartStunden.class);
+
+        Calendar c = new GregorianCalendar();
+        c.setTime(monat);
+
+        q.setParameter("jahr", c.get(Calendar.YEAR));
+        q.setParameter("monat", c.get(Calendar.MONTH) + 1); // + 1 Da Calendar Monate von 0 aus zählt
+
+        return q.getResultList();
+    }
 
     /**
      * Berechnet die verbuchbare sowie die nicht verbuchbare Zeit, die diesen Monat aufgewendet wurde.
