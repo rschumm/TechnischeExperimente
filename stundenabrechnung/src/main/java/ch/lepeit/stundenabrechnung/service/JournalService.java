@@ -42,8 +42,8 @@ public class JournalService {
      * @return Liste der gruppierten Journaleinträge
      */
     public List<GroupedJournal> getGroupedJournals(Date tag) {
-        TypedQuery<GroupedJournal> journals = em.createQuery("SELECT j FROM GroupedJournal j WHERE j.datum = :tag",
-                GroupedJournal.class);
+        TypedQuery<GroupedJournal> journals = em.createQuery(
+                "SELECT j FROM GroupedJournal j WHERE j.primary.datum = :tag", GroupedJournal.class);
 
         journals.setParameter("tag", tag);
 
@@ -76,7 +76,7 @@ public class JournalService {
     public List<GroupedJournal> getNichtVerbuchbarGroupedJournals(Date monat) {
         TypedQuery<GroupedJournal> journals = em
                 .createQuery(
-                        "SELECT j FROM GroupedJournal j WHERE YEAR(j.datum) = :jahr AND MONTH(j.datum) = :monat AND j.task.verbuchbar = 0 ORDER BY j.datum DESC",
+                        "SELECT j FROM GroupedJournal j WHERE YEAR(j.primary.datum) = :jahr AND MONTH(j.primary.datum) = :monat AND j.primary.task.verbuchbar = 0 ORDER BY j.primary.datum DESC",
                         GroupedJournal.class);
 
         Calendar c = new GregorianCalendar();

@@ -3,13 +3,9 @@ package ch.lepeit.stundenabrechnung.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * JPA Model GroupedJournal
@@ -25,19 +21,13 @@ import javax.persistence.TemporalType;
 public class GroupedJournal implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Temporal(TemporalType.DATE)
-    private Date datum = new Date();
+    @EmbeddedId
+    private GroupedJournalPK primary;
 
     private Double stunden;
 
-    // bi-directional many-to-one association to Task
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "TASK")
-    private Task task;
-
     public Date getDatum() {
-        return datum;
+        return this.primary.getDatum();
     }
 
     public Double getStunden() {
@@ -45,11 +35,11 @@ public class GroupedJournal implements Serializable {
     }
 
     public Task getTask() {
-        return task;
+        return this.primary.getTask();
     }
 
     public void setDatum(Date datum) {
-        this.datum = datum;
+        this.primary.setDatum(datum);
     }
 
     public void setStunden(Double stunden) {
@@ -57,7 +47,7 @@ public class GroupedJournal implements Serializable {
     }
 
     public void setTask(Task task) {
-        this.task = task;
+        this.primary.setTask(task);
     }
 
 }

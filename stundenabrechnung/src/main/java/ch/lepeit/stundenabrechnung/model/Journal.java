@@ -26,7 +26,7 @@ public class Journal implements Serializable {
     private String bemerkung;
 
     @Temporal(TemporalType.DATE)
-    private Date datum = new Date();
+    private Date datum;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
