@@ -1,6 +1,6 @@
 --Tages-Insert
 insert into journal (DATUM, STUNDEN, TASK, bemerkung) 
-values(curdate(), 4.2,  '90%', ''); 
+values(curdate(), 4,  'com2', ''); 
 
 
 --Tageskontrolle
@@ -9,11 +9,11 @@ from JOURNAL where DATUM = curdate()
 
 --mit Datum: 
 insert into journal (DATUM, STUNDEN, TASK, bemerkung) 
-values('2012-5-4', 2, 'stiften', ''); 
+values('2012-05-21', 4.2, '90%', '38. Geburtstag'); 
 
 --fur Korrekturen:
 select * 
-from JOURNAL where DATUM >= '2012-4-23'
+from JOURNAL where DATUM >= '15.5.2012'
 order by datum asc
 
 
@@ -23,10 +23,6 @@ where name = 'broker'
 
 shutdown
 
---------------------------------------------------------------------------------
-
--- jdbc:hsqldb:/Users/rschumm/git/TechnischeExperimente/stundenabrechnung/sql/stundenabrechnung
-
 
 
 
@@ -35,26 +31,26 @@ shutdown
 -- Alle Jahreswochen Stunden gesamt
 select year(datum) as jahr, week(datum) as woche, sum(stunden) 
 from journal 
-where year(datum)=year(curdate()) and datum <= curdate()
+where year(datum)=year(curdate()) --and datum <= curdate()
 group by jahr, woche order by jahr desc, woche desc
 
 
 
 
---> !! Wochen�bersicht alle Tage Stunden
+--> !! Wochenübersicht alle Tage Stunden
 select day(datum), dayname(datum), sum(stunden) from journal 
 where year(datum)=year(curdate()) and  week(datum)=week(curdate())
 group by DAYOFWEEK(datum)
 order by DAYOFWEEK(datum)
 
---Wochen�bersicht alle Tage Taks
+--Wochenübersicht alle Tage Taks
 select dayname(datum), datum, stunden, task, bemerkung
 from journal 
 where year(datum)=year(curdate()) and week(datum)=week(curdate())
 
 
 
---Wochen�bersicht tasks in Tagen und Prozenten
+--Wochenübersicht tasks in Tagen und Prozenten
 select task, sum(stunden)/8.4 as tag, sum(stunden) as summe, (sum(stunden)/42)*100 as prozent
 from journal join task on (journal.task = task.name)
 where year(datum)=year(curdate()) and week(datum)=week(curdate())-0
@@ -119,7 +115,7 @@ order by monat, name
 
 
 
---Aggregation f�r ein Projekt
+--Aggregation für ein Projekt
 select sum(stunden) as h, sum(stunden)/8.4 as d
 from journal
 where task = 'broker' and plantaverbucht='false'
@@ -138,13 +134,13 @@ where task = 'drive2011' and PLANTAverbucht = false
 -- Auswertungen "Lepe-Fragen" 
 
  
---aktuelle Monats�bersicht (nicht) verbuchbar total
+--aktuelle Monatsübersicht (nicht) verbuchbar total
 select verbuchbar, sum(stunden) as stunden, sum(stunden)/8.4 as tage
 from journal join task on (journal.task = task.name)
 where month(datum)=month(curdate())   and year(datum) = year(curdate())
 group by VERBUCHBAR; 
 
--- x Monats�bersicht (nicht) verbuchbar (sap/planta/etc)
+-- x Monatsübersicht (nicht) verbuchbar (sap/planta/etc)
 select BUCHART, sum(stunden) as stunden, sum(stunden)/8.4 as tage
 from journal join task on (journal.task = task.name)
 where month(datum)=9  and year(datum) = 2011
@@ -162,7 +158,7 @@ group by datum, name, plantaname order by datum desc
 
 
 
--- x Monat: �bersicht, was ist nicht verbuchbar
+-- x Monat: Übersicht, was ist nicht verbuchbar
 select sum(stunden) as h, sum(stunden)/8.4 as tage, task
 from journal join task on (journal.task = task.name)
 where month(datum)=9 and year(datum) = 2011
@@ -193,7 +189,7 @@ where task like 'm32%' and year(datum) = year(curdate())
 group by woche order by woche desc
 
 
--- iqs Wochen�bersicht 
+-- iqs Wochenübersicht 
 select week(datum) as woche, sum(stunden)/8.4 as pt, sum(stunden) as ph, (sum(stunden)/42)*100 as prozent
 from journal join task on (journal.task = task.name)
 where year(datum)=year(curdate()) and task = 'iqs'
@@ -230,7 +226,7 @@ where task = 'unbezahlt' and year(datum) = 2011
 
 
 
---90% Kontrolle tempor�r
+--90% Kontrolle temporär
 
 select DATUM, STUNDEN, TASK
 from JOURNAL
@@ -242,7 +238,7 @@ select (20 * 4.2) - sum(stunden) as rest_h, sum(stunden) / 4.2 as nachmittage
 from journal
 where task = '90%temp09'
 
--- 1. Nov 2009 bis 31. M�rz 2010 sind 20 Nachmittage. 
+-- 1. Nov 2009 bis 31. März 2010 sind 20 Nachmittage. 
 
 
 
@@ -258,11 +254,19 @@ where name = 'tpsp'
 
 
 
-select * from journal where task = 'borkernet'
+select * from journal where task = 'broker'
+
+
+--fuer Planta: was gibts in dem Projekt
+select datum, sum(stunden),name, plantaname, bemerkung
+from journal join task on (journal.task = task.name)
+where task = 'broker'
+group by datum, name, bemerkung, plantaname order by name, datum
+
+
 
 --Neuer Task
 insert into task values('com2','unbekannt', true, 'planta'); 
-
 
 
 
