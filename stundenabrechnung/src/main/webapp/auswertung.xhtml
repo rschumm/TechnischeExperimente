@@ -15,7 +15,7 @@
 
 				<h:commandLink action="#{auswertungPagingController.letzterMonat()}"
 					immediate="true" render=":auswertung" styleClass="letzterMonat">
-					-
+					<h:graphicImage name="gfx/arrow_left_small.png" />
 				</h:commandLink>
 				<h:outputText value="#{auswertungPagingController.monat}">
 					<f:convertDateTime pattern="MMMM yyyy" />
@@ -23,25 +23,28 @@
 				<h:commandLink
 					action="#{auswertungPagingController.naechsterMonat()}"
 					render=":auswertung" styleClass="naechsterMonat">
-					+
+					<h:graphicImage name="gfx/arrow_right_small.png" />
 				</h:commandLink>
 
 			</f:facet>
 
-			<h:panelGrid columns="2" styleClass="diagrammTable" >
+			<h:panelGrid columns="2" styleClass="diagrammTable">
 
-				<h:panelGroup>
+				<rich:panel>
+					<f:facet name="header" >
+						Verbuchung
+					</f:facet>
 
-					<jsflot:flotChart id="verbuchChart" title="Verbuchung"
+					<jsflot:flotChart id="verbuchChart" 
 						value="#{auswertungController.verbuchbarChart}" chartType="pie"
 						showXaxisLabels="false" showYaxisLabels="false" legendOpacity="1"
 						legendColumns="1" legendPosition="ne" />
 
-					<rich:dataTable var="buchung"
+					<rich:dataTable var="buchung" rendered="#{not empty auswertungController.nichtVerbuchbar}"
 						value="#{auswertungController.nichtVerbuchbar}">
 						<f:facet name="header">
-					Nicht verbuchbar
-				</f:facet>
+							Nicht verbuchbar
+						</f:facet>
 
 						<rich:column>
 							<h:outputText value="#{buchung.datum}" />
@@ -55,12 +58,19 @@
 							<h:outputText value="#{buchung.task.name}" />
 						</rich:column>
 					</rich:dataTable>
-				</h:panelGroup>
+				</rich:panel>
 
-				<jsflot:flotChart id="buchartChart" title="Buchart"
-					value="#{auswertungController.buchartChart}" chartType="pie"
-					showXaxisLabels="false" showYaxisLabels="false" legendOpacity="1"
-					legendColumns="1" legendPosition="ne" />
+				<rich:panel>
+					<f:facet name="header" >
+						Buchart
+					</f:facet>
+				
+					<jsflot:flotChart id="buchartChart" 
+						value="#{auswertungController.buchartChart}" chartType="pie"
+						showXaxisLabels="false" showYaxisLabels="false" legendOpacity="1"
+						legendColumns="1" legendPosition="ne" />
+				</rich:panel>
+				
 			</h:panelGrid>
 
 		</rich:panel>

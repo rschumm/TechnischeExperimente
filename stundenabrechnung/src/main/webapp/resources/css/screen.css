@@ -95,6 +95,10 @@ body {
 	float: right;
 }
 
+.diagrammTable {
+	width: 100%;
+}
+
 .diagrammTable td {
 	vertical-align: top;
 }
