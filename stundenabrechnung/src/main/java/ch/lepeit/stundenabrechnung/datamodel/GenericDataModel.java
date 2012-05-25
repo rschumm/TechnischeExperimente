@@ -183,7 +183,6 @@ public abstract class GenericDataModel<T> extends ExtendedDataModel<T> implement
         return entityClass;
     }
 
-    // TODO - implement using metadata
     protected Object getId(T o) {
         Field[] fields = o.getClass().getDeclaredFields();
 
