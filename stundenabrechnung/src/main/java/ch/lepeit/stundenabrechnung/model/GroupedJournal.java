@@ -3,31 +3,38 @@ package ch.lepeit.stundenabrechnung.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 /**
- * JPA Model GroupedJournal
+ * Model GroupedJournal
  * 
  * Journaleinträge gruppiert nach Tag und Task
  * 
- * @author Generated
  * @author Sven Tschui C910511
  * 
  */
-@Entity
-@Table(name = "GROUPED_JOURNAL")
 public class GroupedJournal implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @EmbeddedId
-    private GroupedJournalPK primary;
+    private Date datum;
+
+    private boolean plantaverbucht;
 
     private Double stunden;
 
+    private Task task;
+
+    public GroupedJournal() {
+    }
+
+    public GroupedJournal(Date datum, Double stunden, Task task, boolean plantaverbucht) {
+        super();
+        this.datum = datum;
+        this.stunden = stunden;
+        this.task = task;
+        this.plantaverbucht = plantaverbucht;
+    }
+
     public Date getDatum() {
-        return this.primary.getDatum();
+        return datum;
     }
 
     public Double getStunden() {
@@ -35,11 +42,19 @@ public class GroupedJournal implements Serializable {
     }
 
     public Task getTask() {
-        return this.primary.getTask();
+        return task;
+    }
+
+    public boolean isPlantaverbucht() {
+        return plantaverbucht;
     }
 
     public void setDatum(Date datum) {
-        this.primary.setDatum(datum);
+        this.datum = datum;
+    }
+
+    public void setPlantaverbucht(boolean plantaverbucht) {
+        this.plantaverbucht = plantaverbucht;
     }
 
     public void setStunden(Double stunden) {
@@ -47,7 +62,7 @@ public class GroupedJournal implements Serializable {
     }
 
     public void setTask(Task task) {
-        this.primary.setTask(task);
+        this.task = task;
     }
 
 }

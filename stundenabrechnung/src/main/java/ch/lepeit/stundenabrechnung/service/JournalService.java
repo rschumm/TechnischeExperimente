@@ -42,8 +42,10 @@ public class JournalService {
      * @return Liste der gruppierten Journaleinträge
      */
     public List<GroupedJournal> getGroupedJournals(Date tag) {
-        TypedQuery<GroupedJournal> journals = em.createQuery(
-                "SELECT j FROM GroupedJournal j WHERE j.primary.datum = :tag", GroupedJournal.class);
+        TypedQuery<GroupedJournal> journals = em
+                .createQuery(
+                        "SELECT new ch.lepeit.stundenabrechnung.model.GroupedJournal(j.datum, SUM(j.stunden), j.task, MIN(j.plantaverbucht)) FROM Journal j WHERE j.datum = :tag GROUP BY j.datum, j.task",
+                        GroupedJournal.class);
 
         journals.setParameter("tag", tag);
 
@@ -76,7 +78,7 @@ public class JournalService {
     public List<GroupedJournal> getNichtVerbuchbarGroupedJournals(Date monat) {
         TypedQuery<GroupedJournal> journals = em
                 .createQuery(
-                        "SELECT j FROM GroupedJournal j WHERE YEAR(j.primary.datum) = :jahr AND MONTH(j.primary.datum) = :monat AND j.primary.task.verbuchbar = 0 ORDER BY j.primary.datum DESC",
+                        "SELECT new ch.lepeit.stundenabrechnung.model.GroupedJournal(j.datum, SUM(j.stunden), j.task, MIN(j.plantaverbucht)) FROM Journal j WHERE YEAR(j.datum) = :jahr AND MONTH(j.datum) = :monat AND j.task.verbuchbar = 0 GROUP BY j.datum, j.task ORDER BY j.datum ASC",
                         GroupedJournal.class);
 
         Calendar c = new GregorianCalendar();
@@ -84,6 +86,20 @@ public class JournalService {
 
         journals.setParameter("jahr", c.get(Calendar.YEAR));
         journals.setParameter("monat", c.get(Calendar.MONTH) + 1); // + 1 Da Calendar Monate von 0 aus zählt
+
+        return journals.getResultList();
+    }
+
+    /**
+     * Erstellt eine Liste von gruppierten Journaleinträgen welche nicht verbucht sind.
+     * 
+     * @return Liste der nicht verbuchten gruppierten Journaleinträge
+     */
+    public List<GroupedJournal> getNichtVerbuchteGroupedJournals() {
+        TypedQuery<GroupedJournal> journals = em
+                .createQuery(
+                        "SELECT new ch.lepeit.stundenabrechnung.model.GroupedJournal(j.datum, SUM(j.stunden), j.task, MIN(j.plantaverbucht)) FROM Journal j WHERE j.plantaverbucht = false GROUP BY j.datum, j.task ORDER BY j.datum DESC",
+                        GroupedJournal.class);
 
         return journals.getResultList();
     }
@@ -109,18 +125,23 @@ public class JournalService {
     }
 
     /**
-     * Ändern des verbucht Status eines Journaleintrages
+     * Ändern des verbucht Status aller Journaleinträge mit einem bestimmten Task an einem bestimmten Tag
      * 
-     * @param nr
-     * Nummer des Journaleintrages
-     * @param verbuchen
-     * Neu zu setzender Status
+     * @param datum
+     * Tag, von welchem die Einträge auf verbucht gesetzt werden sollen
+     * @param task
+     * Task, von welchem die Einträge auf verbucht gesetzt werden sollen
      */
-    public void verbuchen(int nr, boolean verbuchen) {
-        Journal j = em.find(Journal.class, nr);
-        if (j != null) {
-            j.setPlantaverbucht(verbuchen);
+    public void verbuchen(Date datum, String task) {
+        List<Journal> list = em
+                .createQuery(
+                        "SELECT j FROM Journal j WHERE j.plantaverbucht = false AND j.datum = :datum AND j.task.name = :task",
+                        Journal.class).setParameter("datum", datum).setParameter("task", task).getResultList();
+
+        for (Journal j : list) {
+            j.setPlantaverbucht(true);
             em.persist(j);
         }
+
     }
 }

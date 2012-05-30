@@ -14,13 +14,6 @@
 
 			<rich:column>
 				<f:facet name="header">
-					Nr
-				</f:facet>
-				<h:outputText value="#{journal.nr}" />
-			</rich:column>
-
-			<rich:column>
-				<f:facet name="header">
 					Datum
 				</f:facet>
 				<h:outputText value="#{journal.datum}" />
@@ -42,26 +35,16 @@
 
 			<rich:column>
 				<f:facet name="header">
-					Bemerkung
-				</f:facet>
-				<h:outputText value="#{journal.bemerkung}" />
-			</rich:column>
-
-			<rich:column>
-				<f:facet name="header">
 					Verbucht
 				</f:facet>
-				<a4j:commandLink rendered="#{journal.plantaverbucht}" action="#{verbuchenController.verbuchen(journal.nr, false)}" render=":verbuchen" >
-					<h:graphicImage library="gfx" name="checkbox_yes.png" />
-				</a4j:commandLink>
-				<a4j:commandLink rendered="#{!journal.plantaverbucht}" action="#{verbuchenController.verbuchen(journal.nr, true)}" render=":verbuchen" >
+				<h:graphicImage rendered="#{journal.plantaverbucht}" library="gfx" name="checkbox_yes.png" />
+				<a4j:commandLink rendered="#{!journal.plantaverbucht}" action="#{verbuchenController.verbuchen(journal)}" render=":verbuchen" >
 					<h:graphicImage name="gfx/checkbox_no.png" />
 				</a4j:commandLink>
 			</rich:column>
 
 			<f:facet name="footer">
-
-
+			
 				<rich:dataScroller for="verbuchen-table" maxPages="5" >
 
 					<f:facet name="first">
@@ -77,6 +60,8 @@
 			</f:facet>
 
 		</rich:extendedDataTable>
+				
+		<a4j:commandButton action="#{verbuchenController.reload}" render=":verbuchen" value="Aktualisieren" />
 
 	</a4j:outputPanel>
 </ui:composition>

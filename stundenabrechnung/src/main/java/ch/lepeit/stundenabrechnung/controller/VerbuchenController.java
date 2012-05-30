@@ -1,12 +1,14 @@
 package ch.lepeit.stundenabrechnung.controller;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
-import ch.lepeit.stundenabrechnung.datamodel.JournalDataModel;
+import ch.lepeit.stundenabrechnung.model.GroupedJournal;
 import ch.lepeit.stundenabrechnung.service.JournalService;
 
 /**
@@ -24,20 +26,32 @@ import ch.lepeit.stundenabrechnung.service.JournalService;
 public class VerbuchenController implements Serializable {
     private static final long serialVersionUID = 20120523L;
 
-    @EJB
-    private JournalDataModel buchungen;
+    private List<GroupedJournal> buchungen;
 
     @EJB
     private JournalService journalService;
 
-    /* dataTable end */
-
-    public JournalDataModel getBuchungen() {
+    public List<GroupedJournal> getBuchungen() {
         return buchungen;
     }
 
-    public String verbuchen(int nr, boolean verbuchen) {
-        journalService.verbuchen(nr, verbuchen);
+    @PostConstruct
+    public void init() {
+        this.reload();
+    }
+
+    public String reload() {
+        this.buchungen = journalService.getNichtVerbuchteGroupedJournals();
+
+        return null;
+    }
+
+    public String verbuchen(GroupedJournal j) {
+
+        j.setPlantaverbucht(true);
+
+        journalService.verbuchen(j.getDatum(), j.getTask().getName());
+
         return null;
     }
 }
