@@ -29,7 +29,7 @@
 
 					<a4j:ajax execute="@form" event="selectionchange" immediate="true"
 						listener="#{journalKorrekturController.selectionListener}"
-						render="edit-form" />
+						render="korrektur" />
 
 					<rich:column>
 						<f:facet name="header">
@@ -84,13 +84,13 @@
 					</f:facet>
 
 				</rich:extendedDataTable>
-			</h:form>
 
 			<a4j:outputPanel id="edit-form">
 
 				<ui:include src="journalEdit.xhtml" />
 				
 			</a4j:outputPanel>
+			</h:form>
 
 		</h:panelGrid>
 

@@ -6,7 +6,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
 
-	<h:form rendered="#{not empty journalEditController.journal}">
+	<h:panelGroup layout="block" rendered="#{not empty journalEditController.journal}">
 
 		<h:messages styleClass="error" />
 
@@ -46,13 +46,13 @@
 
 
 			<a4j:commandButton value="save"
-				action="#{journalEditController.save}" immediate="false"
+				action="#{journalEditController.save}"
 				render="korrektur" />
 			<a4j:commandButton value="loeschen"
-				action="#{journalEditController.remove}" immediate="false"
+				action="#{journalEditController.remove}"
 				render="korrektur" />
 
 		</h:panelGrid>
 
-	</h:form>
+	</h:panelGroup>
 </ui:composition>
