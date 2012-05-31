@@ -6,7 +6,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
 
-	<h:panelGroup layout="block" rendered="#{not empty journalEditController.journal}">
+	<h:panelGroup layout="block"
+		rendered="#{not empty journalEditController.journal}">
 
 		<h:messages styleClass="error" />
 
@@ -21,12 +22,10 @@
 
 			<h:outputText value="#{journalEditController.journal.nr}" />
 
-			<rich:calendar
-				value="#{journalEditController.journal.datum}" id="datum"
-				required="true" requiredMessage="Bitte Datum angeben!" />
+			<rich:calendar value="#{journalEditController.journal.datum}"
+				id="datum" required="true" requiredMessage="Bitte Datum angeben!" />
 
-			<h:inputText
-				value="#{journalEditController.journal.stunden}"
+			<h:inputText value="#{journalEditController.journal.stunden}"
 				id="stunden" required="true"
 				requiredMessage="Bitte Stunden angeben!">
 				<f:convertNumber maxFractionDigits="1" />
@@ -34,23 +33,20 @@
 
 			<rich:select value="#{journalEditController.task}" id="task"
 				enableManualInput="true" defaultLabel="Waehle einen Task"
-				suggedstionValues="#{journalEditController.tasks}"
-				required="true" requiredMessage="Bitte Task auswaehlen!">
-				<f:selectItems value="#{journalEditController.tasks}"
-					var="task" itemLabel="#{task.name}" itemValue="#{task.name}" />
+				suggedstionValues="#{journalEditController.tasks}" required="true"
+				requiredMessage="Bitte Task auswaehlen!">
+				<f:selectItems value="#{journalEditController.tasks}" var="task"
+					itemLabel="#{task.name}" itemValue="#{task.name}" />
 			</rich:select>
 
-			<h:inputText
-				value="#{journalEditController.journal.bemerkung}"
+			<h:inputText value="#{journalEditController.journal.bemerkung}"
 				id="bemerkung" />
 
 
 			<a4j:commandButton value="save"
-				action="#{journalEditController.save}"
-				render="korrektur" />
+				action="#{journalEditController.save}" render="korrektur" />
 			<a4j:commandButton value="loeschen"
-				action="#{journalEditController.remove}"
-				render="korrektur" />
+				action="#{journalEditController.remove}" render="korrektur" />
 
 		</h:panelGrid>
 

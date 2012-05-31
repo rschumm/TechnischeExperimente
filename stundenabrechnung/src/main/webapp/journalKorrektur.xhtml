@@ -11,25 +11,26 @@
 		<f:facet name="header">
 			Korrektur
 			<h:form>
-				<h:commandButton value="X" title="Fenster schliessen" styleClass="popup-close">
+				<h:commandButton value="X" title="Fenster schliessen"
+					styleClass="popup-close">
 					<rich:componentControl target="korrektur-popup" operation="hide" />
 				</h:commandButton>
 			</h:form>
 		</f:facet>
 
 
-		<h:panelGrid columns="1" id="korrektur" >
+		<h:panelGrid columns="1" id="korrektur">
 			<h:form>
 
 				<rich:extendedDataTable keepSaved="true"
 					value="#{journalKorrekturController.buchungen}"
 					iterationStatusVar="it" var="journal" selectionMode="single"
 					selection="#{journalKorrekturController.selection}" rows="10"
-					id="korrektur-table">
+					id="korrektur-table" >
 
-					<a4j:ajax execute="@form" event="selectionchange" immediate="true"
+					<a4j:ajax execute="@this" event="selectionchange" immediate="true"
 						listener="#{journalKorrekturController.selectionListener}"
-						render="korrektur" />
+						render="korrektur"  />
 
 					<rich:column>
 						<f:facet name="header">
@@ -69,7 +70,7 @@
 					<f:facet name="footer">
 
 
-						<rich:dataScroller for="korrektur-table" maxPages="5">
+						<rich:dataScroller for="korrektur-table" maxPages="5" >
 
 							<f:facet name="first">
 								<h:outputText value="Erste Seite" />
@@ -85,11 +86,11 @@
 
 				</rich:extendedDataTable>
 
-			<a4j:outputPanel id="edit-form">
+				<a4j:outputPanel id="edit-form">
 
-				<ui:include src="journalEdit.xhtml" />
-				
-			</a4j:outputPanel>
+					<ui:include src="journalEdit.xhtml" />
+
+				</a4j:outputPanel>
 			</h:form>
 
 		</h:panelGrid>
