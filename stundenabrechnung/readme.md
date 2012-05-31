@@ -22,6 +22,8 @@ Datenbanktreiber
 ________________
 Der Datenbanktreiber hsqldb.jar (Vorhanden in src/main/webapp/WEB-INF) muss manuell ins JBoss Deploy-Verzeichnis kopiert werden. Anschliessend kann die Applikation deployed werden.
 
+Der Datenbanktreiber kann im Eclipse auch als Deployable markiert (Mark as deployable) werden.
+
 JSFlot
 ______
 
