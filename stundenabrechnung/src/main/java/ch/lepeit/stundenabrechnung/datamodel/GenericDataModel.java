@@ -124,7 +124,7 @@ public abstract class GenericDataModel<T> extends ExtendedDataModel<T> implement
         return criteriaBuilder.gt(locator, 0);
     }
 
-    private List<Order> createOrders(CriteriaBuilder criteriaBuilder, Root<T> root) {
+    protected List<Order> createOrders(CriteriaBuilder criteriaBuilder, Root<T> root) {
         List<Order> orders = Lists.newArrayList();
         List<SortField> sortFields = arrangeableState.getSortFields();
         if (sortFields != null && !sortFields.isEmpty()) {
@@ -153,23 +153,23 @@ public abstract class GenericDataModel<T> extends ExtendedDataModel<T> implement
         return orders;
     }
 
-    private CriteriaQuery<T> createSelectCriteriaQuery() {
+    protected CriteriaQuery<T> createSelectCriteriaQuery() {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(entityClass);
         Root<T> root = criteriaQuery.from(entityClass);
 
-        if (arrangeableState != null) {
+        // if (arrangeableState != null) {
 
-            List<Order> orders = createOrders(criteriaBuilder, root);
-            if (!orders.isEmpty()) {
-                criteriaQuery.orderBy(orders);
-            }
-
-            Expression<Boolean> filterCriteria = createFilterCriteria(criteriaBuilder, root);
-            if (filterCriteria != null) {
-                criteriaQuery.where(filterCriteria);
-            }
+        List<Order> orders = createOrders(criteriaBuilder, root);
+        if (!orders.isEmpty()) {
+            criteriaQuery.orderBy(orders);
         }
+
+        Expression<Boolean> filterCriteria = createFilterCriteria(criteriaBuilder, root);
+        if (filterCriteria != null) {
+            criteriaQuery.where(filterCriteria);
+        }
+        // }
 
         return criteriaQuery;
     }
