@@ -59,14 +59,6 @@
 			</h:panelGrid>
 		</a4j:outputPanel>
 
-		<h:panelGroup layout="block" styleClass="korrekturBtnContainer">
-
-			<a4j:commandButton value="Korrektur" execute="korrektur-popup-wrapper" action="#{popupController.show()}" oncomplete="#{rich:component('korrektur-popup')}.show();" render="korrektur-popup-wrapper korrektur-form" />
-
-		</h:panelGroup>
-
 	</h:panelGroup>
-
-	<ui:include src="journalKorrektur.xhtml" />
 
 </ui:composition>

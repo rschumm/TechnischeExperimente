@@ -27,7 +27,7 @@ import ch.lepeit.stundenabrechnung.model.Journal;
  */
 @Named
 @SessionScoped
-public class JournalKorrekturController extends Observable implements Serializable {
+public class KorrekturController extends Observable implements Serializable {
     private static final long serialVersionUID = 20120516L;
 
     @EJB

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<!-- TODO: Load by AJAX / Size-->
+
+	<h:panelGrid columns="1" id="korrektur" >
+
+			<rich:extendedDataTable keepSaved="true"
+				value="#{korrekturController.buchungen}"
+				iterationStatusVar="it" var="journal" selectionMode="single"
+				selection="#{korrekturController.selection}" rows="10"
+				id="korrektur-table">
+
+				<a4j:ajax execute="@this" event="selectionchange" immediate="true"
+					listener="#{korrekturController.selectionListener}"
+					render="korrektur" />
+
+				<rich:column>
+					<f:facet name="header">
+							Nr
+						</f:facet>
+					<h:outputText value="#{journal.nr}" />
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+							Datum
+						</f:facet>
+					<h:outputText value="#{journal.datum}" />
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+								Stunden
+						</f:facet>
+					<h:outputText value="#{journal.stunden}" />
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+							Task
+						</f:facet>
+					<h:outputText value="#{journal.task.name}" />
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+							Bemerkung
+						</f:facet>
+					<h:outputText value="#{journal.bemerkung}" />
+				</rich:column>
+
+				<f:facet name="footer">
+
+
+					<rich:dataScroller for="korrektur-table" maxPages="5">
+
+						<f:facet name="first">
+							<h:outputText value="Erste Seite" />
+						</f:facet>
+
+						<f:facet name="last">
+							<h:outputText value="Letzte Seite" />
+						</f:facet>
+
+					</rich:dataScroller>
+
+				</f:facet>
+
+			</rich:extendedDataTable>
+
+			<a4j:outputPanel id="edit-form">
+
+				<ui:include src="korrekturEdit.xhtml" />
+
+			</a4j:outputPanel>
+
+	</h:panelGrid>
+</ui:composition>

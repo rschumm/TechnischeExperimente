@@ -19,7 +19,7 @@ import ch.lepeit.stundenabrechnung.service.TaskService;
 
 @Named
 @SessionScoped
-public class JournalEditController implements Serializable, Observer {
+public class KorrekturEditController implements Serializable, Observer {
     private static final long serialVersionUID = 20120524L;
 
     private Journal journal;
@@ -28,7 +28,7 @@ public class JournalEditController implements Serializable, Observer {
     private JournalService journalService;
 
     @Inject
-    private JournalKorrekturController korrekturController;
+    private KorrekturController korrekturController;
 
     private List<Task> tasks;
 
