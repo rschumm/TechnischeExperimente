@@ -7,93 +7,99 @@
 	xmlns:rich="http://richfaces.org/rich">
 	<!-- TODO: Load by AJAX / Size-->
 
-	<rich:popupPanel id="korrektur-popup" autosized="true">
-		<f:facet name="header">
+
+	<h:panelGroup id="korrektur-popup-wrapper">
+
+		<rich:popupPanel id="korrektur-popup" autosized="true"
+			rendered="#{popupController.show}">
+			<f:facet name="header">
 			Korrektur
 			<h:form>
-				<h:commandButton value="X" title="Fenster schliessen"
-					styleClass="popup-close">
-					<rich:componentControl target="korrektur-popup" operation="hide" />
-				</h:commandButton>
-			</h:form>
-		</f:facet>
+					<h:commandButton value="X" title="Fenster schliessen"
+						styleClass="popup-close">
+						<rich:componentControl target="korrektur-popup" operation="hide" />
+					</h:commandButton>
+				</h:form>
+			</f:facet>
 
 
-		<h:panelGrid columns="1" id="korrektur">
-			<h:form>
+			<h:panelGrid columns="1" id="korrektur">
+				<h:form id="korrektur-form">
 
-				<rich:extendedDataTable keepSaved="true"
-					value="#{journalKorrekturController.buchungen}"
-					iterationStatusVar="it" var="journal" selectionMode="single"
-					selection="#{journalKorrekturController.selection}" rows="10"
-					id="korrektur-table" >
+					<rich:extendedDataTable keepSaved="true"
+						value="#{journalKorrekturController.buchungen}"
+						iterationStatusVar="it" var="journal" selectionMode="single"
+						selection="#{journalKorrekturController.selection}" rows="10"
+						id="korrektur-table">
 
-					<a4j:ajax execute="@this" event="selectionchange" immediate="true"
-						listener="#{journalKorrekturController.selectionListener}"
-						render="korrektur"  />
+						<a4j:ajax execute="@this" event="selectionchange" immediate="true"
+							listener="#{journalKorrekturController.selectionListener}"
+							render="korrektur" />
 
-					<rich:column>
-						<f:facet name="header">
+						<rich:column>
+							<f:facet name="header">
 							Nr
 						</f:facet>
-						<h:outputText value="#{journal.nr}" />
-					</rich:column>
+							<h:outputText value="#{journal.nr}" />
+						</rich:column>
 
-					<rich:column>
-						<f:facet name="header">
+						<rich:column>
+							<f:facet name="header">
 							Datum
 						</f:facet>
-						<h:outputText value="#{journal.datum}" />
-					</rich:column>
+							<h:outputText value="#{journal.datum}" />
+						</rich:column>
 
-					<rich:column>
-						<f:facet name="header">
+						<rich:column>
+							<f:facet name="header">
 								Stunden
 						</f:facet>
-						<h:outputText value="#{journal.stunden}" />
-					</rich:column>
+							<h:outputText value="#{journal.stunden}" />
+						</rich:column>
 
-					<rich:column>
-						<f:facet name="header">
+						<rich:column>
+							<f:facet name="header">
 							Task
 						</f:facet>
-						<h:outputText value="#{journal.task.name}" />
-					</rich:column>
+							<h:outputText value="#{journal.task.name}" />
+						</rich:column>
 
-					<rich:column>
-						<f:facet name="header">
+						<rich:column>
+							<f:facet name="header">
 							Bemerkung
 						</f:facet>
-						<h:outputText value="#{journal.bemerkung}" />
-					</rich:column>
+							<h:outputText value="#{journal.bemerkung}" />
+						</rich:column>
 
-					<f:facet name="footer">
+						<f:facet name="footer">
 
 
-						<rich:dataScroller for="korrektur-table" maxPages="5" >
+							<rich:dataScroller for="korrektur-table" maxPages="5">
 
-							<f:facet name="first">
-								<h:outputText value="Erste Seite" />
-							</f:facet>
+								<f:facet name="first">
+									<h:outputText value="Erste Seite" />
+								</f:facet>
 
-							<f:facet name="last">
-								<h:outputText value="Letzte Seite" />
-							</f:facet>
+								<f:facet name="last">
+									<h:outputText value="Letzte Seite" />
+								</f:facet>
 
-						</rich:dataScroller>
+							</rich:dataScroller>
 
-					</f:facet>
+						</f:facet>
 
-				</rich:extendedDataTable>
+					</rich:extendedDataTable>
 
-				<a4j:outputPanel id="edit-form">
+					<a4j:outputPanel id="edit-form">
 
-					<ui:include src="journalEdit.xhtml" />
+						<ui:include src="journalEdit.xhtml" />
 
-				</a4j:outputPanel>
-			</h:form>
+					</a4j:outputPanel>
+				</h:form>
 
-		</h:panelGrid>
+			</h:panelGrid>
 
-	</rich:popupPanel>
+		</rich:popupPanel>
+
+	</h:panelGroup>
 </ui:composition>

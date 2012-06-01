@@ -61,9 +61,7 @@
 
 		<h:panelGroup layout="block" styleClass="korrekturBtnContainer">
 
-			<h:commandButton value="Korrektur">
-				<rich:componentControl target="korrektur-popup" operation="show" />
-			</h:commandButton>
+			<a4j:commandButton value="Korrektur" execute="korrektur-popup-wrapper" action="#{popupController.show()}" oncomplete="#{rich:component('korrektur-popup')}.show();" render="korrektur-popup-wrapper korrektur-form" />
 
 		</h:panelGroup>
 
