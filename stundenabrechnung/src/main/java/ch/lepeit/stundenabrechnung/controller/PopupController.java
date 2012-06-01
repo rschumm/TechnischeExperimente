@@ -23,8 +23,6 @@ public class PopupController implements Serializable {
     }
 
     public String show() {
-        System.out.println("show =)");
-
         this.show = true;
 
         return null;
