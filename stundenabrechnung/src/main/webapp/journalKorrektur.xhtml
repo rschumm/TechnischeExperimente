@@ -15,10 +15,7 @@
 			<f:facet name="header">
 			Korrektur
 			<h:form>
-					<h:commandButton value="X" title="Fenster schliessen"
-						styleClass="popup-close">
-						<rich:componentControl target="korrektur-popup" operation="hide" />
-					</h:commandButton>
+					<a4j:commandButton value="X" title="Fenster schliessen" styleClass="popup-close" execute="korrektur-popup-wrapper" onbeforedomupdate="#{rich:component('korrektur-popup')}.hide(); " action="#{popupController.hide()}" render="korrektur-popup-wrapper" />
 				</h:form>
 			</f:facet>
 
