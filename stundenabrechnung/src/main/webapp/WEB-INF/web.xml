@@ -8,6 +8,6 @@
 	</context-param>
 	<context-param>
 		<param-name>org.richfaces.skin</param-name>
-		<param-value>blueSky</param-value>
+		<param-value>axa</param-value>
 	</context-param>
 </web-app>
