@@ -7,7 +7,7 @@
 	xmlns:rich="http://richfaces.org/rich">
 	<!-- TODO: Load by AJAX / Size-->
 
-	<h:panelGrid columns="1" id="korrektur" >
+	<h:panelGroup layout="block" id="korrektur" >
 
 			<rich:extendedDataTable keepSaved="true"
 				value="#{korrekturController.buchungen}"
@@ -79,5 +79,5 @@
 
 			</a4j:outputPanel>
 
-	</h:panelGrid>
+	</h:panelGroup>
 </ui:composition>
