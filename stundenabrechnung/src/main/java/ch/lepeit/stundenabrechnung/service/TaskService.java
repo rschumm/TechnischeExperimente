@@ -39,4 +39,14 @@ public class TaskService {
     public List<Task> getTasks() {
         return em.createQuery("SELECT t FROM Task t", Task.class).getResultList();
     }
+
+    /**
+     * Speichern eines Tasks
+     * 
+     * @param task
+     * Der zu speichernde Task
+     */
+    public void save(Task task) {
+        em.persist(task);
+    }
 }

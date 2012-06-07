@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<h:panelGroup id="tasks">
+
+		<h:panelGrid columns="5">
+			<f:facet name="header">
+				<h:outputText value="Hinzufuegen" />
+			</f:facet>
+
+			<h:outputLabel for="task-name" value="Name" />
+
+			<h:outputLabel for="task-verbuchbar" value="Verbuchbar" />
+
+			<h:outputLabel for="task-buchart" value="Buchart" />
+
+			<h:outputLabel for="task-name" value="Plantaname" />
+
+			<h:outputLabel for="task-name" value="" />
+
+
+
+			<h:inputText id="task-name" value="#{taskAddController.task.name}"
+				required="true" requiredMessage="Bitte Name abgeben" />
+
+			<h:selectBooleanCheckbox id="task-verbuchbar" value="#{taskAddController.task.verbuchbar}" />
+
+			<rich:select id="task-buchart" value="#{taskAddController.buchart}"
+				enableManualInput="true" defaultLabel="Waehle eine Buchart"
+				suggedstionValues="#{taskAddController.bucharten}" required="true"
+				requiredMessage="Bitte Buchart auswaehlen!">
+				<f:selectItems value="#{taskAddController.bucharten}" var="buchart"
+					itemLabel="#{buchart.art}" itemValue="#{buchart.art}" />
+			</rich:select>
+			
+			<h:inputText id="task-planta" value="#{taskAddController.task.plantaname}" />
+			
+			<a4j:commandButton action="#{taskAddController.save}" value="Speichern" />
+
+		</h:panelGrid>
+
+		<rich:dataTable value="#{taskController.tasks}" var="task">
+		
+			<rich:column>
+				<f:facet name="header" >
+					Name
+				</f:facet>
+			
+				<h:outputText value="#{task.name}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header" >
+					Verbuchbar
+				</f:facet>
+				
+				<h:graphicImage name="gfx/yes.png" rendered="#{task.verbuchbar}" />
+				<h:graphicImage name="gfx/no.png" rendered="#{!task.verbuchbar}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header" >
+					Buchart
+				</f:facet>
+				
+				<h:outputText value="#{task.buchart.art}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header" >
+					Plantaname
+				</f:facet>
+				
+				<h:outputText value="#{task.plantaname}" />
+			</rich:column>
+		
+		</rich:dataTable>
+
+	</h:panelGroup>
+
+</ui:composition>

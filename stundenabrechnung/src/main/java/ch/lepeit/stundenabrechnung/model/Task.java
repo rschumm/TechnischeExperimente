@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -32,7 +30,6 @@ public class Task implements Serializable {
     private List<Journal> journals;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private String name;
 
     private String plantaname;
