@@ -21,6 +21,16 @@ public class TaskService {
     private EntityManager em;
 
     /**
+     * Löschen eines Tasks über dessen Namen
+     * 
+     * @param name
+     * Der Name des zu löschenden Task
+     */
+    public void delete(String name) {
+        em.remove(em.find(Task.class, name));
+    }
+
+    /**
      * Suchen einer Task Entität mit dessen Name (Primärschlüssel)
      * 
      * @param name

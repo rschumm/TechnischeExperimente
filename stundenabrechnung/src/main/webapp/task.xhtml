@@ -7,6 +7,8 @@
 	xmlns:rich="http://richfaces.org/rich">
 
 	<h:panelGroup id="tasks">
+	
+		<h:messages />
 
 		<h:panelGrid columns="5">
 			<f:facet name="header">
@@ -44,7 +46,7 @@
 
 		</h:panelGrid>
 
-		<rich:dataTable value="#{taskController.tasks}" var="task">
+		<rich:dataTable rows="20" value="#{taskController.tasks}" var="task">
 		
 			<rich:column>
 				<f:facet name="header" >
@@ -77,6 +79,16 @@
 				</f:facet>
 				
 				<h:outputText value="#{task.plantaname}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header" >
+					Aktion
+				</f:facet>
+				
+				<a4j:commandLink action="#{taskController.deleteTask(task.name)}" immediate="true" >
+					<h:graphicImage name="gfx/delete.png" />
+				</a4j:commandLink>
 			</rich:column>
 		
 		</rich:dataTable>

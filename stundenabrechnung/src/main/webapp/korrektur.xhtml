@@ -12,7 +12,7 @@
 			<rich:extendedDataTable keepSaved="true"
 				value="#{korrekturController.buchungen}"
 				iterationStatusVar="it" var="journal" selectionMode="single"
-				selection="#{korrekturController.selection}" rows="10"
+				selection="#{korrekturController.selection}" rows="20"
 				id="korrektur-table">
 
 				<a4j:ajax execute="@this" event="selectionchange" immediate="true"
