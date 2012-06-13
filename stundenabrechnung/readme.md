@@ -15,14 +15,29 @@ Detaillierte Angaben im Wiki unter:
 
 https://github.com/rschumm/TechnischeExperimente/wiki/Stundenabrechnung:-ein-JSF2-Experiment
 
-Konfiguration
--------------
+Konfiguration / Installation
+----------------------------
+
+Um die Stundenabrechnungn utzen zu können muss irgendwo auf dem Lokalen Rechner ein Verzeichnis mit folgendem Inhalt erstellt werden:
+
+- ./jboss (JBoss AS7)
+- ./hsqldb.jar (HSQLD JDBC Treiber)
+- ./stundenabrechnung.bat (Startscript aus dem Repository)
+
+Der Treiber bzw. der Jboss AS 7 kann auch in einem anderen Verzeichniss liegen, dafür müsste aber das stundenabrechnung.bat angepasst werden.
+
+Beim ersten Start muss die Webapplikation auf den server deployed werden (Siehe Deployment).
+
+Deployment
+----------
 
 Datenbanktreiber
 ________________
 Der Datenbanktreiber hsqldb.jar (Vorhanden in src/main/webapp/WEB-INF) muss manuell ins JBoss Deploy-Verzeichnis kopiert werden. Anschliessend kann die Applikation deployed werden.
 
 Der Datenbanktreiber kann im Eclipse auch als Deployable markiert (Mark as deployable) werden.
+
+Die Webapplikation kann direkt aus Eclipse deployed werden oder als .war Datei ins deployments Verzeichniss des JBoss AS7 kopiert werden.
 
 JSFlot
 ______
